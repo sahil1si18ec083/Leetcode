@@ -8,6 +8,7 @@ var containsNearbyDuplicate = function (nums, k) {
     let i = 0;
     let j = 0;
     const set = new Set()
+    // simple sliding window jab window ki side k say jayda ho jaye toh shrink karna start kar do window ko
     while (j < n) {
         set.add(nums[j]);
         j++
