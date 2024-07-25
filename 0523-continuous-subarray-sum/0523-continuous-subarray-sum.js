@@ -9,10 +9,13 @@ var checkSubarraySum = function (nums, k) {
     map.set(0, -1);
 
     for (let i = 0; i < nums.length; i++) {
+        
         prefixsum = prefixsum + nums[i];
         let res = prefixsum % k;
 
         if (map.has(res) && i - map.get(res) > 1) {
+           
+
             return true;
         }
         if (!map.has(res)) {
