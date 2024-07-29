@@ -11,38 +11,25 @@
  * @param {TreeNode} q
  * @return {TreeNode}
  */
-function printToNode(root, target, arr) {
-    
-    if (root == null) {
-        return false
-    }
-    arr.push(root.val);
-    // console.log(root.val, target)
-    if (root.val == target) {
-        return true
-    }
-
-    if (printToNode(root.left, target, arr) || printToNode(root.right, target, arr)) {
-        return true
-    }
-    // console.log(arr)
-    arr.pop()
-    return false;
-}
 var lowestCommonAncestor = function (root, p, q) {
-    const arr1 = []
-    const arr2 = []
 
-    let ispresentPflag = printToNode(root, p.val, arr1);
-    let ispresentQflag = printToNode(root, q.val, arr2);
-    let res;
-    for(let i=0;i<arr1.length && i<arr2.length;i++){
-        if (arr1[i]==arr2[i]){
-            res= arr1[i]
-        }
+    if (root == null) {
+        return null;
     }
-    
-    return new TreeNode( res)
 
-
+    if (root.val==p.val || root.val==q.val){
+        
+        return root
+    }
+    var left = lowestCommonAncestor(root.left, p, q);
+    var right = lowestCommonAncestor(root.right, p, q);
+    if (left != null && right != null) {
+        return root;
+    }
+    if (left == null) {
+        return right
+    }
+    if (right == null) {
+        return left
+    }
 };
