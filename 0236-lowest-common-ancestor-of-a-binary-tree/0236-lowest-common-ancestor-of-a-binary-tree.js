@@ -11,25 +11,24 @@
  * @param {TreeNode} q
  * @return {TreeNode}
  */
-var lowestCommonAncestor = function (root, p, q) {
-
-    if (root == null) {
-        return null;
+var lowestCommonAncestor = function(root, p, q) {
+    if (root==null){
+        return null
     }
-
-    if (root.val==p.val || root.val==q.val){
-        
-        return root
-    }
-    var left = lowestCommonAncestor(root.left, p, q);
-    var right = lowestCommonAncestor(root.right, p, q);
-    if (left != null && right != null) {
+    
+    if (root.val ==p.val || root.val ==q.val){
         return root;
     }
-    if (left == null) {
+    let left = lowestCommonAncestor(root.left, p,q);
+    let right = lowestCommonAncestor(root.right, p,q)
+    if (left!=null && right!=null){
+        return root;
+    }
+    if (left==null){
         return right
     }
-    if (right == null) {
+    if (right==null){
         return left
     }
+    
 };
