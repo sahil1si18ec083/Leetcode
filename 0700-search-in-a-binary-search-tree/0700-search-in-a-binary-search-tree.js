@@ -11,20 +11,34 @@
  * @param {number} val
  * @return {TreeNode}
  */
-var searchBST = function(root, val) {
-    
-    while(root!=null){
-        if (root.val ==val){
-            return root
+var searchBST = function (root, val) {
 
-        }
-        else if (root.val>val){
-            root= root.left
-        }
-        else{
-            root= root.right;
-        }
-        
+    // Iterative Approach
+    // while(root!=null){
+    //     if (root.val ==val){
+    //         return root
+
+    //     }
+    //     else if (root.val>val){
+    //         root= root.left
+    //     }
+    //     else{
+    //         root= root.right;
+    //     }
+
+    // }
+    // return null
+    if (root == null) {
+        return null
     }
-    return null
+    else if (root.val == val) {
+        return root
+    }
+    else if (root.val < val) {
+        return searchBST(root.right,val)
+    }
+    else {
+        return searchBST(root.left,val)
+
+    }
 };
