@@ -13,18 +13,16 @@
  */
 var insertIntoBST = function (root, val) {
     if (root == null) {
-        root = new TreeNode(val)
-        return root
+        return new TreeNode(val)
     }
-    else if (root.val < val) {
+    if (root.val < val) {
         root.right = insertIntoBST(root.right, val)
 
     }
     else {
         root.left = insertIntoBST(root.left, val)
+
     }
-
     return root
-
 
 };
