@@ -16,27 +16,42 @@ function solve(root, obj) {
         return
     }
     solve(root.left, obj);
-   
+
     if (root.val > obj.prev) {
         obj.prev = root.val
     }
     else {
-        console.log("logger")
         obj.issorted = false;
     }
-    
+
     solve(root.right, obj);
 
 
 }
+function validateBST(root, leftrange, rightrange) {
+    if (root == null) {
+        return true;
+    }
+    if (root.val > leftrange && root.val < rightrange) {
+        return validateBST(root.left, leftrange, root.val) && validateBST(root.right, root.val, rightrange)
+    }
+    return false
+}
 var isValidBST = function (root) {
 
-    let obj ={prev: -Math.pow(2,31)-1, issorted:true};
-    
+    // let obj ={prev: -Math.pow(2,31)-1, issorted:true};
 
-    solve(root, obj);
-   
-    return obj.issorted
+
+    // solve(root, obj);
+
+    // return obj.issorted
+
+    let leftrange = -Math.pow(2, 31) - 1;
+    let rightrange = Math.pow(2, 31) + 1;
+
+    return validateBST(root, leftrange, rightrange)
+
+
 
 
 
