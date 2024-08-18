@@ -3,31 +3,32 @@
  * @return {string}
  */
 var longestCommonPrefix = function (strs) {
-    var pointer = 0;  // This  is for keeping track of the length of substring
-    var iterator = 0; // this is for iterating on flower
-    while (iterator < strs[0].length) {
+    let j = 0;
+    while (j < strs[0].length) {
+        var isflag = true;
+        let character = strs[0][j];
+        // console.log(character)
         for (let i = 0; i < strs.length; i++) {
-            debugger;
-            var isSame = true;
-             debugger;
-             console.log(strs[i][pointer], strs[i][0])
-            if (strs[i][pointer] != strs[0][pointer]) {
-                console.log(strs[i][pointer], strs[0][i])
-                isSame = false;
-                break;
-
+            if (strs[i].length <= j) {
+                isflag = false;
             }
 
+            if (character != strs[i][j]) {
 
+                isflag = false;
+            }
         }
-        if (isSame) {
-            debugger;
-            pointer++
-        }
-        iterator++
 
+        if (isflag == true) {
+            j++;
+        }
+        else {
+
+            break;
+        }
     }
-
-    return strs[0].substring(0, pointer) // iterate over the strs[0] and return the value fl
-
+    if (j == 0) {
+        return ""
+    }
+    return strs[0].slice(0, j)
 };
