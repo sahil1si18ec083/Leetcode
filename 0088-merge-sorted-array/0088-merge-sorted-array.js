@@ -5,25 +5,37 @@
  * @param {number} n
  * @return {void} Do not return anything, modify nums1 in-place instead.
  */
-var merge = function(nums1, m, nums2, n) {
-    console.log({nums1});
-    console.log(nums1.length);
+var merge = function (nums1, m, nums2, n) {
     if (m == 0) {
-        nums1.splice(0, n, ...nums2);
-        // nums1=[...nums2]
-        return;
+        for (let i = 0; i < nums2.length; i++) {
+            nums1[i] = nums2[i]
+        }
+        return
     }
+    var k = m + n-1;
     let i = m - 1;
     let j = n - 1;
-    let k = m + n - 1;
-    while (j >= 0) {
-        if (i >= 0 && nums1[i] > nums2[j]) {
-            nums1[k] = nums1[i];
-            i--;
-        } else {
+    while (i >= 0 && j >= 0) {
+        if (nums1[i] < nums2[j]) {
             nums1[k] = nums2[j];
             j--;
+            k--;
+
+
         }
-        k--;
+        else {
+            nums1[k] = nums1[i];
+            i--;
+            k--;
+
+
+        }
+
     }
+    while (j >= 0) {
+        nums1[k] = nums2[j];
+        k--;
+        j--;
+    }
+
 };
