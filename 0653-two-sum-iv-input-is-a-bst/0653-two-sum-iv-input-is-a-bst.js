@@ -11,29 +11,29 @@
  * @param {number} k
  * @return {boolean}
  */
-var findTarget = function (root, k) {
-    function solve(root, inorderarr) {
-        if (root == null) {
-            return;
-        }
-        solve(root.left, inorderarr);
-        inorderarr.push(root.val);
-        solve(root.right, inorderarr);
-
+function inorder(root, inorderarr) {
+    if (root == null) {
+        return;
     }
+    inorder(root.left, inorderarr);
+    inorderarr.push(root.val);
+    inorder(root.right, inorderarr);
+}
+var findTarget = function (root, k) {
     const inorderarr = []
-    solve(root, inorderarr);
-    let i = 0;
-    let j = inorderarr.length - 1;
-    while (i < j) {
-        if (inorderarr[i] + inorderarr[j] == k) {
-            return true
+    inorder(root, inorderarr);
+    console.log(inorderarr)
+    let low = 0;
+    let high = inorderarr.length - 1;
+    while (low < high) {
+        if (inorderarr[low] + inorderarr[high] == k) {
+            return true;
         }
-        else if (inorderarr[i] + inorderarr[j] < k) {
-            i++;
+        else if (inorderarr[low] + inorderarr[high] < k) {
+            low++
         }
         else {
-            j--;
+            high--;
         }
     }
 
