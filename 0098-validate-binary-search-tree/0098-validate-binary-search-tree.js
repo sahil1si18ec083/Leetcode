@@ -10,49 +10,22 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-function solve(root, obj) {
-    // inorder traversal
-    if (root == null) {
-        return
+ function validate(root,min,max){
+    if (root==null){
+        return true
     }
-    solve(root.left, obj);
-
-    if (root.val > obj.prev) {
-        obj.prev = root.val
-    }
-    else {
-        obj.issorted = false;
+    if (root.val> min && root.val<max){
+        return (validate(root.left, min, root.val ) && validate(root.right, root.val,max  ) )
     }
 
-    solve(root.right, obj);
+    return false;
 
+ }
+var isValidBST = function(root) {
+    let min = -Math.pow(2,31)-1;
+    let max= Math.pow(2,31);
+    return validate(root,min,max);
+   
 
-}
-function validateBST(root, leftrange, rightrange) {
-    if (root == null) {
-        return true;
-    }
-    if (root.val > leftrange && root.val < rightrange) {
-        return validateBST(root.left, leftrange, root.val) && validateBST(root.right, root.val, rightrange)
-    }
-    return false
-}
-var isValidBST = function (root) {
-
-    // let obj ={prev: -Math.pow(2,31)-1, issorted:true};
-
-
-    // solve(root, obj);
-
-    // return obj.issorted
-
-    let leftrange = -Math.pow(2, 31) - 1;
-    let rightrange = Math.pow(2, 31) + 1;
-
-    return validateBST(root, leftrange, rightrange)
-
-
-
-
-
+    
 };
