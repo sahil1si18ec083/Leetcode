@@ -11,17 +11,7 @@
  * @param {number} key
  * @return {TreeNode}
  */
-function search(root, key) {
-    if (root == null || root.val == key) {
-        return root
-    }
-    if (root.val > key) {
-        return search(root.left, key)
-    }
-    else {
-        return search(root.right, key)
-    }
-}
+
 function max(root) {
     let val = -1000000;
     while (root != null) {
@@ -65,10 +55,7 @@ function mydelete (root, key){
 var deleteNode = function (root, key) {
 
 
-    const node = search(root, key);
-    if (node == null) {
-        return root
-    }
+    
 
     let newroot = mydelete (root, key)
 
