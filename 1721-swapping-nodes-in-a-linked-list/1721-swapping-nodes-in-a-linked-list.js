@@ -10,37 +10,38 @@
  * @param {number} k
  * @return {ListNode}
  */
-var swapNodes = function (head, k) {
-    function getLength(head) {
+var swapNodes = function(head, k) {
+    function getLength(head){
+        let length=0;
         let current = head;
-        let length = 0;
-        while (current) {
-            current = current.next;
+        while(current!=null){
             length++;
+            current = current.next
         }
         return length;
     }
-
-    let count = 0;
     const n = getLength(head);
-    let l1;
-    let l2;
+    let kthnode;
+    let nminuskthnode;
+    let count=1;
     let current = head;
-    while (current){
-       
-        count++;
+    while(current!=null){
         if (count==k){
-            l1= current;
+            kthnode= current;
         }
         if (count==n-k+1){
-            l2= current;
+            nminuskthnode= current;
         }
-         current = current.next;
-
+        count++;
+        current = current.next;
     }
+    let a = kthnode.val;
+    let b = nminuskthnode.val;
+    kthnode.val =b;
+    nminuskthnode.val =a;
 
-    let temp= l1.val;
-    l1.val = l2.val;
-    l2.val = temp;
     return head
+
+
+    
 };
