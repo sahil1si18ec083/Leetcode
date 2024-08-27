@@ -17,10 +17,10 @@ var deleteMiddle = function(head) {
         head.next =null;
         return head
     }
-        if (head.next.next.next==null){
-        head.next =head.next.next
-        return head
-    }
+    //     if (head.next.next.next==null){
+    //     head.next =head.next.next
+    //     return head
+    // }
     let slow = head;
     let  fast = head;
     let prevslow = null;
