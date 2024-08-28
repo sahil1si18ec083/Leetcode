@@ -10,22 +10,28 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-function solve(arr,root,level){
-    console.log({level})
-    if (root==null){
-        return
-    }
-    if (level==arr.length){ // printing root
-        arr.push(root.val);
-    }
-    
-    solve(arr,root.right,level+1)  // right part of inorder
-    solve(arr,root.left,level+1) // left part of inorder
-}  
 var rightSideView = function(root) {
+    function dfs(arr, root, level){
+        if (root==null){
+            return ;
+        }
+        if (level>arr.length){
+            arr.push(root.val)
+        }
+        // right call
+        dfs(arr, root.right, level+1);
+         // left call
+        dfs(arr, root.left, level+1);
+
+
+    }
+    if (root==null){
+        return []
+
+    }
     const arr=[]
-    let level=0;
-    solve(arr,root,level);
-    return arr
+    var level=1;
+    dfs(arr, root, level)
+    return arr;
     
 };
