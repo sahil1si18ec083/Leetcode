@@ -2,22 +2,20 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-var productExceptSelf = function (nums) {
-    const prefixproduct = [];
-    const suffixproduct = [];
-    let product = 1;
-    for (let i = 0; i < nums.length; i++) {
-        prefixproduct.push(product)
-        product = product * nums[i]
+var productExceptSelf = function(nums) {
+    const n = nums.length;
+    const result= new Array(n).fill(0);
+
+    let prefixproduct=1;
+    let suffixproduct =1;
+    for(let i=0;i<n;i++){
+        result[i]= prefixproduct;
+        prefixproduct= prefixproduct*nums[i];
+
     }
-    product = 1;
-    for (let i = nums.length - 1; i >= 0; i--) {
-        suffixproduct.unshift(product)
-        product = product * nums[i]
+    for(let i=n-1;i>=0;i--){
+        result[i]= result[i]*suffixproduct;
+        suffixproduct= suffixproduct*nums[i]
     }
-    const ans = []
-    for (let i = 0; i < prefixproduct.length; i++) {
-        ans.push(prefixproduct[i] * suffixproduct[i])
-    }
-    return ans
+return result    
 };
