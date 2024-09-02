@@ -10,22 +10,32 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-function height(root) {
+function height(root, obj) {
+    
     if (root == null) {
         return 0
     }
-    return (1 + Math.max(height(root.left), height(root.right)))
+    if (Math.abs(height(root.left,obj) - height(root.right,obj)) > 1) {
+       obj.val = false;   // Update obj.val to false if the tree is unbalanced
+        return null;
+       
+        // obj.val = false;
+        return null
+
+    }
+    return (1 + Math.max(height(root.left,obj), height(root.right,obj)))
 }
 var isBalanced = function (root) {
 
-    if (root == null) {
-        return true
-    }
 
-    var left = root.left;
-    var right = root.right;
+    var obj = { val: true }
+    var h1 = height(root, obj)
 
-    return (Math.abs(height(left) - height(right)) < 2 && isBalanced(left) && isBalanced(right))
+    return obj.val
+
+
+
+
 
 
 
