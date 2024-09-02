@@ -10,31 +10,20 @@
  * @param {TreeNode} root
  * @return {number}
  */
-function height(root){
+function height(root) {
     if (root == null) {
         return 0;
     }
-    var leftpart = root.left;
-    var rightpart = root.right;
-
-    return (1 + Math.max(height(leftpart), height(rightpart)))
+    return (1 + Math.max(height(root.left), height(root.right)))
 }
 var diameterOfBinaryTree = function (root) {
+
     if (root == null) {
         return 0;
+
     }
-
-    var leftpart = root.left;
-    var rightpart = root.right;
-    var leftheight= height(leftpart);
-    var rightheight = height(rightpart)
-    var totalheight= leftheight+rightheight
-
-    return (Math.max(diameterOfBinaryTree(root.left),totalheight, diameterOfBinaryTree(root.right) ))
-
-
-
-
-
+    let diamterofleft = diameterOfBinaryTree(root.left)
+    let diamterofright = diameterOfBinaryTree(root.right)
+    return (Math.max(diamterofleft, diamterofright, height(root.left) + height(root.right)))
 
 };
