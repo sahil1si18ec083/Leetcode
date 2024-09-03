@@ -10,10 +10,12 @@ var getLucky = function(s, k) {
         sum = sum + String(s.charCodeAt(i)-96);
 
     }
-    let sumNumber = Number(sum);
-    
+    let sumNumber =0;
+    for(let i=0;i<sum.length;i++){
+        sumNumber= sumNumber+ Number(sum[i])
+    }
 
-    for(let i=0;i<k;i++){
+    for(let i=0;i<k-1;i++){
         let n = sumNumber;
         let s=0;
         while(n!=0){
