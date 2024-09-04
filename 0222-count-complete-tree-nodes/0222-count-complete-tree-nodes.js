@@ -14,8 +14,6 @@ var countNodes = function(root) {
     if (root==null){
         return 0;
     }
-    let left = countNodes(root.left);
-    let right = countNodes(root.right);
-    return (1+ left+ right)
+    return (1+ countNodes(root.left)+ countNodes(root.right))
     
 };
