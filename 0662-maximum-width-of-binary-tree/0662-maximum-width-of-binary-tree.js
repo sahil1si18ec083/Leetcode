@@ -10,45 +10,32 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var widthOfBinaryTree = function (root) {
-    if(!root) {
-        return 0;
-    }
-    const queue = []
-    queue.push({ Node: root, index: 0 });
-    let maxlength=0;
-
-    while (queue.length>0) {
-        let queuelength = queue.length;
-     
-        let diff = queue[queue.length-1].index - queue[0].index +1;
+var widthOfBinaryTree = function(root) {
+    var maxlength=0;
+    const queue =[]
+    queue.push({index:0, Node:root})
+    while(queue.length){
+        let length = queue.length;
+        let diff= queue[length-1].index- queue[0].index +1;
         
-        if (diff>maxlength){
-            maxlength= diff;
-        }
-        let minValue= queue[0].index;
-        for(let i=0;i<queuelength;i++){
-            if (queue[i].index<minValue){
-                minvalue= queue[i].index
-            }
-        }
-        console.log({minValue})
-        for (let i = 0; i < queuelength; i++) {
+        maxlength= Math.max(diff,maxlength )
+         let min = queue[0].index;
+        for(let i=0;i<length;i++){
+           
+           
             let temp = queue[0];
-
-            queue.shift();
-            // console.log(temp)
-            // console.log(temp.Node)
-
-            if (temp.Node.left != null) {
-                queue.push({ Node: temp.Node.left, index: 2* (temp.index-minValue) + 1 })
+            queue.shift()
+            if (temp.Node.left!=null){
+                queue.push({index: 2*(temp.index-min)+1, Node: temp.Node.left})
 
             }
-            if (temp.Node.right != null) {
-                queue.push({ Node: temp.Node.right, index: 2* (temp.index-minValue) + 2 })
+            if (temp.Node.right!=null){
+                queue.push({index: 2*(temp.index-min)+2, Node: temp.Node.right})
             }
         }
-    }
-    return maxlength
 
+
+    }
+    return maxlength;
+    
 };
