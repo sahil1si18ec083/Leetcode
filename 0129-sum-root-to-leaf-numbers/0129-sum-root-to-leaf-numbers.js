@@ -11,28 +11,31 @@
  * @return {number}
  */
 var sumNumbers = function (root) {
-    function solve(root, sum, path) {
+    function solve(root, str, res) {
         if (root == null) {
-            return null;
+            return
         }
-        if (root.left == null &&  root.right == null) {
-           
-            sum.value = sum.value + Number(path + String(root.val))
-        }
-        // left ki call marni padegi
-        solve(root.left, sum, path + String(root.val))
+        if (root.left == null && root.right == null) {
+            res.val = res.val + Number(str+String(root.val))
 
-        // right ki call marni padegi
-        solve(root.right, sum, path + String(root.val))
+        }
+
+        solve(root.left, str+ String(root.val), res)
+        solve(root.right, str+ String(root.val), res)
+
+
 
     }
 
-
-    let sum = {
-        value: 0
+    const res = {
+        val: 0
     }
-    solve(root, sum, "");
-    return sum.value
+    let str = ""
+
+    solve(root, str, res);
+
+
+    return res.val;
 
 
 };
