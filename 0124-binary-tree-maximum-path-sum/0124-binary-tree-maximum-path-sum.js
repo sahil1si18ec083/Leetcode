@@ -29,16 +29,11 @@ var maxPathSum = function (root) {
             return root.val
 
         }
-        else if (leftsum >= 0 && rightsum < 0) {
-             maxsum.value = Math.max(maxsum.value, root.val+leftsum )
-             return root.val+leftsum
-
+        else{
+            maxsum.value = Math.max(maxsum.value, root.val+ Math.max(leftsum, rightsum))
+            return (root.val +  Math.max(leftsum, rightsum) )
         }
-        else if (leftsum < 0 && rightsum >= 0) {
-            maxsum.value = Math.max(maxsum.value, root.val+rightsum )
-             return root.val+rightsum
-
-        }
+        
     }
 
     const maxsum = {
