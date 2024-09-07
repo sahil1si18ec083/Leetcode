@@ -10,32 +10,25 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var sumNumbers = function (root) {
-    function solve(root, str, res) {
-        if (root == null) {
+var sumNumbers = function(root) {
+    function  solve(total, str, root){
+        if (root==null){
             return
         }
-        if (root.left == null && root.right == null) {
-            res.val = res.val + Number(str+String(root.val))
-
+        if (root.left==null && root.right==null){
+            total.val = total.val + (Number(str)*10 + root.val)
         }
-
-        solve(root.left, str+ String(root.val), res)
-        solve(root.right, str+ String(root.val), res)
-
-
-
+        // left ki call marega toh string mai jodunga
+        solve(total, str+String(root.val), root.left)
+        // right mai bi toh add karna hai
+        solve(total, str+String(root.val), root.right)
     }
+    const total={val:0}
+    var str=""
 
-    const res = {
-        val: 0
-    }
-    let str = ""
+    solve(total, str, root)
 
-    solve(root, str, res);
+    return total.val
 
-
-    return res.val;
-
-
+    
 };
