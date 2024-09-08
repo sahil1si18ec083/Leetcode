@@ -12,29 +12,32 @@
  * @return {number[][]}
  */
 var pathSum = function (root, targetSum) {
-    function solve(root, targetSum, sum, res, arr) {
+
+    function solve(root, targetSum, arr, res, sum) {
         if (root == null) {
             return;
         }
-        arr.push(root.val);
-        sum.val = sum.val + root.val;
-        if (root.left == null && root.right == null) {
-            const arrcopy = [...arr];
-            if (sum.val == targetSum) {
-                res.push(arrcopy);
-            }
+        if (root.left==null && root.right==null &&  root.val + sum == targetSum) {
+            const arrcopy = [...arr, root.val];
+            res.push(arrcopy)
         }
-        solve(root.left, targetSum, sum , res, arr) // leftcall
-        // arr.pop()
-        solve(root.right, targetSum, sum , res, arr) // right call
-        arr.pop();
-        sum.val = sum.val - root.val;
+        solve(root.left, targetSum, [...arr, root.val], res, sum + root.val)
+        solve(root.right, targetSum, [...arr, root.val], res, sum + root.val)
+    }
+    if (root == null) {
+        return []
     }
 
-    const res = [];
-    let sum = { val: 0 };
+    const res = []
     const arr = []
-    solve(root, targetSum, sum, res, arr);
-    return res
+    var sum = 0;
+
+    solve(root, targetSum, arr, res, sum);
+
+    return res;
+
+
+
+
 
 };
