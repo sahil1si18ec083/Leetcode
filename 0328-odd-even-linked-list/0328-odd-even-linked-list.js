@@ -10,33 +10,24 @@
  * @return {ListNode}
  */
 var oddEvenList = function (head) {
-
-    const dummyOdd = new ListNode(-1);
-    const dummyEven = new ListNode(-1);
-    var currentOdd = dummyOdd
-    var currentEven = dummyEven;
-    var i=0;
-    while (head != null) {
-        if (i % 2 == 0) {
-            currentOdd.next = head;
-            currentOdd = currentOdd.next;
-
-        }
-        else {
-            currentEven.next = head;
-            currentEven = currentEven.next;
-
-        }
-        head = head.next;
-        i++;
+    if (head==null || head.next==null || (head.next.next==null)){
+        return head
     }
-    currentOdd.next = dummyEven.next;
-    currentEven.next = null;
+    var even = head;
+    var odd = head.next;
+    var temp = head.next;
+    while (odd  && odd.next) {
+        even.next =odd.next;
+        even = odd.next;
+        odd.next = even.next;
+        odd = even.next;
+        even.next=null;
+    }
+    even.next = temp;
+    console.log(head.next)
+    
 
-
-    return dummyOdd.next;
-
-
+    return head
 
 
 };
