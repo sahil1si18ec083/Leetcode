@@ -17,9 +17,9 @@
         return a;
     }
     if (a>b){
-        return (gcd(a-b,b))
+        return (gcd(a%b,b))
     }
-    return  (gcd(a,b-a))
+    return  (gcd(a,b%a))
  }
 var insertGreatestCommonDivisors = function(head) {
      // base case for my recursion
