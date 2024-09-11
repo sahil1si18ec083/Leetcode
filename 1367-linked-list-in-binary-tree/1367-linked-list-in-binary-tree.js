@@ -18,31 +18,23 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
-function dfs(str, isFlag, stringlinkedlist, root) {
-    if (root == null) {
-        return
-    }
-    if (root.left == null && root.right == null) {
-        const temp = str + String(root.val)
-        if (temp.includes(stringlinkedlist)) {
-            isFlag.val = true;
+var isSubPath = function(head, root) {
+    function helper(head, root){
+        if (head==null){
+            return true
         }
+        if (root==null){
+            return false
+        }
+        if (root.val == head.val && (helper(head.next, root.left) ||   helper(head.next, root.right) )){
+            return true
+        }
+        return false
     }
-    dfs(str + String(root.val) + ".", isFlag, stringlinkedlist, root.left)
-    dfs(str + String(root.val) + ".", isFlag, stringlinkedlist, root.right)
-}
-var isSubPath = function (head, root) {
-    var stringlinkedlist = ""
-    while (head != null && head.next != null) {
-        stringlinkedlist = stringlinkedlist + head.val + ".";
-        head = head.next;
+
+    if (root==null){
+        return false
     }
-    stringlinkedlist = stringlinkedlist + head.val;
-
-    var isFlag = { val: false }
-    var str = ""
-
-    dfs(str, isFlag, stringlinkedlist, root)
-    return isFlag.val
-
+    return (helper(head, root) ||  isSubPath( head, root.left) ||  isSubPath(head, root.right))
+    
 };
