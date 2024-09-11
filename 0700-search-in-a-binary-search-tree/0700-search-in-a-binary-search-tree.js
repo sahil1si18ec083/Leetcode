@@ -28,17 +28,14 @@ var searchBST = function (root, val) {
 
     // }
     // return null
-    if (root == null) {
+
+    if (root==null){
         return null
     }
-    else if (root.val == val) {
+    if (root.val ==val){
         return root
     }
-    else if (root.val < val) {
-        return searchBST(root.right,val)
-    }
-    else {
-        return searchBST(root.left,val)
+    return (searchBST(root.left, val)|| searchBST(root.right, val) )
 
-    }
+    
 };
