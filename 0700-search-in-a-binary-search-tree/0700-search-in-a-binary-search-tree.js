@@ -35,7 +35,9 @@ var searchBST = function (root, val) {
     if (root.val ==val){
         return root
     }
-    return (searchBST(root.left, val)|| searchBST(root.right, val) )
+
+    return (searchBST(root.left,val) || searchBST(root.right,val) )
+
 
     
 };
