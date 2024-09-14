@@ -3,6 +3,7 @@
  * @return {number}
  */
 var longestSubarray = function (nums) {
+    // This problem is same as Longest Subarray With Maximum value
     let max = nums[0];
     let maxlength = 1;
     let count = 0;
