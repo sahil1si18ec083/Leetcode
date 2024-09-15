@@ -13,26 +13,24 @@
  * @return {_Node}
  */
 var connect = function(root) {
-    const queue=[]
     if (root==null){
-        return null;
+        return root
     }
-    queue.push(root)
-    while(queue.length>0){
-        let queuelength = queue.length;
-        for(let i=0;i<queuelength;i++){
-            let temp = queue[0];
-            queue.shift();
-            // no need to populate next pointer for the extreme right node in every row
-            if (i!= queuelength-1){
-                temp.next = queue[0]
+    const q=[]
+    q.push(root)
+    while(q.length>0){
+        let qlength = q.length;
+        for(let i=0;i<qlength;i++){
+            let temp=q[0];
+            q.shift();
+            if (i!=qlength-1){
+                temp.next = q[0]
             }
-            
-            if (temp.left!=null){
-                queue.push(temp.left)
+            if(temp.left){
+                q.push(temp.left)
             }
-             if (temp.right!=null){
-                queue.push(temp.right)
+            if (temp.right){
+                q.push(temp.right)
             }
         }
     }
