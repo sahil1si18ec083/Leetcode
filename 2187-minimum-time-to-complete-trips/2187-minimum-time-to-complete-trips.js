@@ -5,22 +5,29 @@
  */
 var minimumTime = function(time, totalTrips) {
     let low=1;
-    let high = Math.max(...time)* totalTrips;
-    let res;
+    let high =Math.max(...time)* totalTrips;
+    let unsure;
+    console.log({high})
     while(low<=high){
         let mid= Math.floor((low+high)/2);
-        let total=0;
+        let totaltime = 0;
         for(let i=0;i<time.length;i++){
-            total= total+ Math.floor(mid/time[i]);
+            totaltime= totaltime+ Math.floor(mid/time[i])
         }
-        if(total>=totalTrips){
-            res= mid;
-            high = mid-1;
+        if (totaltime>=totalTrips){
+            console.log({mid})
+            unsure= mid;
+            high = mid-1
+
+
         }
-        else{
-            low= mid+1;
+        else {
+            low= mid+1
+
         }
+
     }
-    return res
+
+    return unsure
     
 };
