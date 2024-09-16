@@ -12,18 +12,19 @@ var findMinDifference = function(timePoints) {
     }
 
     timePoints.sort((a,b)=> getMinutes(a)- getMinutes(b)  )
+    const n = timePoints.length;
     console.log(timePoints)
     let min=111111;
     for(let i=0;i<timePoints.length-1;i++){
 
-        let bigger = Math.max(getMinutes( timePoints[i]),getMinutes( timePoints[i+1]) );
-        let smaller = Math.min(getMinutes( timePoints[i]),getMinutes( timePoints[i+1]) );
+        let smaller = getMinutes( timePoints[i])
+        let bigger = getMinutes( timePoints[i+1])
         min = Math.min(min, bigger-smaller, 1440-bigger+smaller)
         
     }
-    let bigger = Math.max(getMinutes( timePoints[timePoints.length-1]),getMinutes( timePoints[0]) );
-        let smaller = Math.min(getMinutes( timePoints[timePoints.length-1]),getMinutes( timePoints[0]) );
-        min = Math.min(min, bigger-smaller, 1440-bigger+smaller)
+    let last = getMinutes( timePoints[n-1])
+        let first = getMinutes( timePoints[0])
+        min = Math.min(min, last-first, 1440-last+first)
     return min
 
    
