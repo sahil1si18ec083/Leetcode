@@ -10,22 +10,20 @@
  * @param {TreeNode} root
  * @return {boolean}
  */
- function validate(root,min,max){
-    if (root==null){
-        return true
+var isValidBST = function (root) {
+    function helper(root, min, max) {
+
+        if (root === null) {
+            return true
+
+        }
+        return (root.val > min && root.val < max && helper(root.left, min, root.val) &&
+            helper(root.right, root.val, max)
+        )
     }
-    if (root.val> min && root.val<max){
-        return (validate(root.left, min, root.val ) && validate(root.right, root.val,max  ) )
-    }
+    let max = Number.MAX_SAFE_INTEGER;
+    let min = Number.MIN_SAFE_INTEGER;
+    return helper(root, min, max)
 
-    return false;
 
- }
-var isValidBST = function(root) {
-    let min = -Math.pow(2,31)-1;
-    let max= Math.pow(2,31);
-    return validate(root,min,max);
-   
-
-    
 };
