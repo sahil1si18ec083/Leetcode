@@ -12,31 +12,27 @@
  * @return {number}
  */
 var kthSmallest = function (root, k) {
-
-    function solve(obj, root, k) {
+    function dfs(root, k, obj) {
         if (root == null) {
-            return;
+            return
         }
+         dfs(root.left, k, obj)
+        if (obj.index == k) {
+            obj.number = root.val;
+            
 
-        solve(obj, root.left, k) // inorder mai left ki call
-        obj.count = obj.count + 1;
-        
-        if (obj.count == k) {
-           obj.result = root.val
         }
-        solve(obj, root.right, k) // inorder mai right ki call
-
-
-    }
-    let obj = {
-        count: 0,
-        result: -1
+        obj.index = obj.index + 1;
+       
+        dfs(root.right, k, obj)
 
     }
 
-    solve(obj, root, k);
+    const obj = {
+        index: 1,
+        number: 0
+    }
 
-    return obj.result
-
-
+    dfs(root, k, obj)
+    return obj.number
 };
