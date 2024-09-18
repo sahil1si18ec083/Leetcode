@@ -11,7 +11,7 @@
  * @param {number} k
  * @return {boolean}
  */
-function inorder(root, inorderarr) {
+ function inorder(root, inorderarr) {
     if (root == null) {
         return;
     }
@@ -19,23 +19,29 @@ function inorder(root, inorderarr) {
     inorderarr.push(root.val);
     inorder(root.right, inorderarr);
 }
-var findTarget = function (root, k) {
-    const inorderarr = []
-    inorder(root, inorderarr);
-    console.log(inorderarr)
-    let low = 0;
-    let high = inorderarr.length - 1;
-    while (low < high) {
-        if (inorderarr[low] + inorderarr[high] == k) {
-            return true;
+var findTarget = function(root, k) {
+
+    const inorderarr=[]
+    inorder(root, inorderarr)
+
+    let low=0;
+    let high= inorderarr.length-1;
+    while(low<=high){
+        if (inorderarr[low] +  inorderarr[high] == k ){
+            return true
         }
-        else if (inorderarr[low] + inorderarr[high] < k) {
-            low++
+        else if (inorderarr[low] +  inorderarr[high] < k ){
+            low++;
         }
-        else {
-            high--;
+        else{
+            high--
         }
     }
-
     return false
+
+
+
+
+    
+    
 };
