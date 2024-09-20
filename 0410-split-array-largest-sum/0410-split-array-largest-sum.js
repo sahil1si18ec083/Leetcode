@@ -6,7 +6,7 @@
 var splitArray = function (nums, k) {
     function isPossible(nums, k, mid) {
         const n = nums.length;
-        let subarraycount = 1;
+        let subarraycount = 0;
         let sum = 0;
         for (let i = 0; i < n; i++) {
             if (nums[i] > mid) {
@@ -17,11 +17,13 @@ var splitArray = function (nums, k) {
             }
             else {
                 subarraycount++;
-                if (subarraycount > k) {
-                    return false
-                }
+
                 sum = nums[i]
             }
+        }
+        subarraycount++
+        if (subarraycount > k) {
+            return false
         }
 
         return true
