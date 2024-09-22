@@ -10,33 +10,25 @@
  * @param {number[]} preorder
  * @return {TreeNode}
  */
-var bstFromPreorder = function (preorder) {
-    function solve(inorder, preorder, preorderIndex, low, high) {
-        // base case
-        if (low > high || preorderIndex.val>=n ) {
-            return null;
-
+var bstFromPreorder = function(preorder) {
+    function insert(root, val){
+        if(root==null){
+            return new TreeNode(val)
         }
-        const rootval = preorder[preorderIndex.val];
-        let inorderindex;
-        for (let i = low; i <= high; i++) {
-            if (inorder[i] == rootval) {
-                inorderindex = i;
-                break;
-            }
+        if (val<root.val){
+            root.left = insert(root.left,val);
         }
-        preorderIndex.val= preorderIndex.val +1;
-        const root = new TreeNode(rootval);
-        root.left =solve(inorder, preorder, preorderIndex, low, inorderindex-1)
-        root.right =solve(inorder, preorder, preorderIndex,  inorderindex+1,high)
+        else{
+            root.right = insert(root.right,val);
+        }
         return root
+
     }
-    const inorder = [...preorder].sort((a, b) => a - b)
-    console.log(inorder)
-    console.log(preorder)
+    const root = new TreeNode(preorder[0])
+    for(let i=1;i<preorder.length;i++){
+        insert(root, preorder[i])
+    }
 
-    let preorderIndex = { val: 0 }
-    var n = inorder.length;
-    return solve(inorder, preorder, preorderIndex, 0, n - 1)
-
+    return root
+    
 };
