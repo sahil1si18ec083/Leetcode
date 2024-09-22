@@ -15,14 +15,27 @@ var insertIntoBST = function(root, val) {
     if(root==null){
         return new TreeNode(val);
     }
-    if (val<root.val){
-        // left mai insert karo
-        root.left = insertIntoBST(root.left, val)
+    let temp = root;
+    while(temp!=null){
+        if (temp.val>val){
+            if (temp.left==null && temp.right==null){
+                temp.left = new TreeNode(val);
+                return root
+            }
+            temp = temp.left
+        }
+        else{
+             if (temp.left==null && temp.right==null){
+                temp.right = new TreeNode(val);
+                return root
+            }
+            temp = temp.right
+
+        }
     }
-    else{
-        root.right = insertIntoBST(root.right, val)
-    }
+
     return root
+
 
     
 };
