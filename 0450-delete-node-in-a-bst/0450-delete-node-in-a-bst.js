@@ -11,56 +11,44 @@
  * @param {number} key
  * @return {TreeNode}
  */
-
-function max(root) {
-    let val = -1000000;
-    while (root != null) {
-        val = Math.max(val, root.val);
-        root = root.right;
+     function fngetInorderSuccesor(root){
+        let val = root.val;
+        while(root!=null){
+            root= root.left;
+            if(root!=null){
+                val = root.val;
+            }
+        }
+        return val;
     }
-    return val
-}
-function mydelete (root, key){
+var deleteNode = function (root, key) {
+
     if (root == null) {
         return root
     }
-    if (root.val == key) {
-        // o child
-        if (root.left == null && root.right == null) {
-            return null;
-        }
-        // 1 child
-        if (root.left == null && root.right != null) {
-            return root.right
-        }
-        if (root.right == null && root.left != null) {
-            return root.left
-        }
-        // 2 childs
-        if (root.left != null && root.right != null) {
-            let maxleft = max(root.left);
-            root.val = maxleft;
-            root.left = mydelete (root.left, maxleft)
-        }
+    if (root.left == null && root.right == null && root.val == key) {
+        return null
 
     }
-    else if (root.val < key) {
-        root.right = mydelete (root.right, key)
+    if (root.left == null && root.val == key) {
+        return root.right
     }
-    else {
-        root.left = mydelete (root.left, key)
+    if (root.right == null && root.val == key) {
+        return root.left
+    }
+    if (root.left && root.right && root.val==key){
+        // agar left aur right dono mai children hai then take inorder succesor
+        let inordersuccesor = fngetInorderSuccesor(root.right);
+        root.val = inordersuccesor;
+        root.right = deleteNode(root.right,inordersuccesor)
+        return root
+    }
+    if (key<root.val){
+        root.left =deleteNode(root.left,key)
+    }
+    else{
+        root.right =deleteNode(root.right,key)
+        
     }
     return root
-}
-var deleteNode = function (root, key) {
-
-
-    
-
-    let newroot = mydelete (root, key)
-
-    return newroot;
-
-
-
 };
