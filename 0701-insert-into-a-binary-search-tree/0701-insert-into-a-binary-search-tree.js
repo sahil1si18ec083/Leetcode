@@ -12,14 +12,17 @@
  * @return {TreeNode}
  */
 var insertIntoBST = function(root, val) {
-    if (root==null){
-        return new TreeNode(val) ;
+    if(root==null){
+        return new TreeNode(val);
     }
-    if (root.val<val){
-        root.right = insertIntoBST(root.right,val)
+    if (val<root.val){
+        // left mai insert karo
+        root.left = insertIntoBST(root.left, val)
     }
     else{
-        root.left = insertIntoBST(root.left,val)
+        root.right = insertIntoBST(root.right, val)
     }
     return root
+
+    
 };
