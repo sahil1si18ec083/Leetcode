@@ -10,27 +10,28 @@
  * @param {TreeNode} root
  * @return {void} Do not return anything, modify root in-place instead.
  */
-var flatten = function(root) {
-    function solve(arr, root){
-        if (root==null){
-            return 
+var flatten = function (root) {
+    function dfs(root, preorderarr) {
+        if (root == null) {
+            return
         }
-        arr.push(root)
-        solve(arr, root.left)
-        solve(arr, root.right)
+        preorderarr.push(root)
+        dfs(root.left, preorderarr)
+        dfs(root.right, preorderarr)
     }
-    const arr=[];
-     solve(arr, root);
-     console.log(arr)
-     var current = root;
-     for(let i=1;i<arr.length;i++){
-        current.right= arr[i];
-        current.left= null;
-        current = arr[i]
 
-     }
-     
+    const preorderarr = []
 
+    dfs(root, preorderarr)
 
-    
+    const head = root;
+    let temp = root;
+    for(let i=1;i<preorderarr.length;i++){
+        temp.right = preorderarr[i];
+        temp.left=null;
+        temp= preorderarr[i]
+
+    }
+    return head
+
 };
