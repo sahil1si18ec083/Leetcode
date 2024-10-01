@@ -1,45 +1,48 @@
 class CustomStack {
-    vector<int> v1;
-    int mymaxsize;
+    vector<int> st;
+    int max;
+    vector<int> incrementarr;
     int size;
 
 public:
     CustomStack(int maxSize) {
-        mymaxsize= maxSize;
-        size=0;
-
-
+        max = maxSize;
+        size = 0;
     }
 
     void push(int x) {
-        if(size<mymaxsize){
-            v1.push_back(x);
-            size++;
-
+        if (size < max) {
+            st.push_back(x);
+            incrementarr.push_back(0);
+             size++;
         }
     }
 
     int pop() {
-        if(size==0){
+        if (size == 0) {
             return -1;
         }
-        int temp = v1[v1.size()-1];
-        v1.pop_back();
+        int val = st[st.size() - 1];
+        int valincrement = incrementarr[incrementarr.size() - 1];
+        if (incrementarr.size() > 1) {
+            incrementarr[incrementarr.size() - 2] += valincrement;
+        }
+
         size--;
-        return temp;
+        st.pop_back();
+        incrementarr.pop_back();
+        return (val+valincrement);
     }
 
     void increment(int k, int val) {
-        if(size<k){
-            for(int i=0;i<v1.size();i++){
-                v1[i]= v1[i]+val;
-            }
+        if(st.size()==0){
+            return;
         }
-        else{
-            for(int i=0;i<k;i++){
-                v1[i]= v1[i]+val;
+        if (st.size() < k) {
 
-            }
+            incrementarr[incrementarr.size() - 1] += val;
+        } else {
+            incrementarr[k - 1] += val;
         }
     }
 };
