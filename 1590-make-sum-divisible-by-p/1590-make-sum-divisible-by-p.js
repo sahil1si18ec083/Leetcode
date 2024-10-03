@@ -14,7 +14,7 @@ var minSubarray = function (nums, p) {
     for (let i = 0; i < n; i++) {
         totalsum = totalsum + nums[i];
     }
-    let r = (totalsum) % p; // to avoid  negativee rmainse
+    let r = (totalsum) % p; 
     if(r==0){
         return 0;
     }
@@ -23,8 +23,7 @@ var minSubarray = function (nums, p) {
     for (let i = 0; i < n; i++) {
         prefixsum = prefixsum + nums[i];
 
-        let r1 = prefixsum%p;
-         if (r1 < 0) r1 += p; // Ensure r1 is non-negative
+        let r1 = (prefixsum%p + p)%p;
         let rminusr1= (r1-r+p)%p;
 
         if(mp.has(rminusr1)){
@@ -34,9 +33,6 @@ var minSubarray = function (nums, p) {
         }
        
             mp.set(r1, i)
-        
-
-
     }
 
    return min == n? -1 : min;
