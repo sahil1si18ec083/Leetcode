@@ -48,6 +48,6 @@ public:
             j++;
         }
      
-        return s.substr(startindex,minval);
+        return startindex==-1?"":s.substr(startindex,minval);
     }
 };
