@@ -15,18 +15,18 @@ public:
                 }
             }
         }
-        while (mystack.size() > 1) {
-            char top = mystack.top();
-            mystack.pop();
-            char secondtop = mystack.top();
-            if ((secondtop == 'A' && top == 'B') ||
-                (secondtop == 'C' && top == 'D')) {
-                mystack.pop();
-            } else {
-                mystack.push(top);
-                break;
-            }
-        }
+        // while (mystack.size() > 1) {
+        //     char top = mystack.top();
+        //     mystack.pop();
+        //     char secondtop = mystack.top();
+        //     if ((secondtop == 'A' && top == 'B') ||
+        //         (secondtop == 'C' && top == 'D')) {
+        //         mystack.pop();
+        //     } else {
+        //         mystack.push(top);
+        //         break;
+        //     }
+        // }
         return mystack.size();
     }
 };
