@@ -11,23 +11,24 @@
  */
 class Solution {
 public:
-    int finheight(TreeNode *root){
+    int finheight(TreeNode *root, bool &flag){
         if(root==NULL){
             return 0;
         }
-        return (1+max(finheight(root->left), finheight(root->right)) );
+        if(abs(finheight(root->left,flag)- finheight(root->right,flag))>1){
+            
+            flag = false;
+            return 123345;
+        }
+        return (1+max(finheight(root->left,flag), finheight(root->right,flag)) );
     }
     bool isBalanced(TreeNode* root) {
 
         if(root==NULL){
             return true;
         }
-        int l = finheight(root->left);
-        int r = finheight(root->right);
-        if (abs(r-l)>1){
-            return false;
-        }
-
-        return (isBalanced(root->left) && isBalanced(root->right));
+        bool flag = true;
+        int h = finheight(root,flag);
+        return flag;
     }
 };
