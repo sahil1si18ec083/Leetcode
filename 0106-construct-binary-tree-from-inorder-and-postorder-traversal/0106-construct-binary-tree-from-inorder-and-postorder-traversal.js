@@ -11,34 +11,37 @@
  * @param {number[]} postorder
  * @return {TreeNode}
  */
-var buildTree = function(inorder, postorder) {
-    function solve(inorder,postorder,postorderindex,start,end){
-        console.log(start,end)
-        if (start>end){
-            return null;
+var buildTree = function (inorder, postorder) {
+    function solve(inorder, postorder, postorderIndex, start, end) {
+        if (start > end || postorderIndex.val<0) {
+            return null
         }
-        // if (start==end){
-        //     return new TreeNode(inorder[start])
-        // }
-        var root = new TreeNode(postorder[postorderindex.val]);
-        var rootvalue = root.val;
-        var inorderIndex;
-        for(let i=start;i<=end;i++){
-            if (inorder[i]==rootvalue){
-                inorderIndex= i;
+        var postordervalue = postorder[postorderIndex.val];
+        let inorderIndex = -1;
+        for (let i = start; i <= end; i++) {
+            if (inorder[i] == postordervalue) {
+                inorderIndex = i;
                 break;
 
             }
         }
-        postorderindex.val = postorderindex.val -1;
-        root.right = solve(inorder,postorder,postorderindex,inorderIndex+1,end);
-        root.left = solve(inorder,postorder,postorderindex,start,inorderIndex-1);
+        var root = new TreeNode(postordervalue);
+        postorderIndex.val = postorderIndex.val - 1;
+         root.right = solve(inorder, postorder, postorderIndex, inorderIndex + 1, end)
+        root.left = solve(inorder, postorder, postorderIndex, start, inorderIndex - 1)
+       
         
-        return root;
+        return root
     }
-    const n = inorder.length;
-    const postorderindex={val:n-1};
 
-    return solve(inorder,postorder,postorderindex,0,n-1 );
-    
+
+    var n = inorder.length;
+    const postorderIndex = {
+        val: n - 1
+    }
+
+    return solve(inorder, postorder, postorderIndex, 0, n - 1)
+
+
+
 };
