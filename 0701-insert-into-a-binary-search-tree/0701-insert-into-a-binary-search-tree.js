@@ -18,14 +18,14 @@ var insertIntoBST = function(root, val) {
     let temp = root;
     while(temp!=null){
         if (temp.val>val){
-            if (temp.left==null && temp.right==null){
+            if (temp.left==null ){
                 temp.left = new TreeNode(val);
                 return root
             }
             temp = temp.left
         }
         else{
-             if (temp.left==null && temp.right==null){
+             if ( temp.right==null){
                 temp.right = new TreeNode(val);
                 return root
             }
