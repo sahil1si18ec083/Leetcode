@@ -16,11 +16,10 @@ var isCousins = function (root, x, y) {
     const queue = []
     queue.push(root)
 
-    let levelofx;
-    let levelofy;
-    let parentofx;
-    let parentofy;
-    var level = 0;
+
+    let parentofx = null;
+    let parentofy = null;
+
 
     while (queue.length > 0) {
         let queueLength = queue.length;
@@ -30,33 +29,40 @@ var isCousins = function (root, x, y) {
             if (temp.left) {
                 queue.push(temp.left)
                 if (temp.left.val == x) {
-                    levelofx = level + 1;
                     parentofx = temp;
 
                 }
                 if (temp.left.val == y) {
-                    levelofy = level + 1;
                     parentofy = temp;
 
                 }
             }
-            if (temp.right ) {
+            if (temp.right) {
                 queue.push(temp.right)
                 if (temp.right.val == y) {
-                    levelofy = level + 1;
+
                     parentofy = temp;
 
                 }
-                 if (temp.right.val == x) {
-                    levelofx = level + 1;
+                if (temp.right.val == x) {
+
                     parentofx = temp;
 
                 }
             }
         }
-        level++;
+        if (parentofx && parentofy) {
+            if (parentofx != parentofy) {
+                return true
+            }
+            return false
+        }
+        if (parentofx
+            || parentofy) {
+            return false
+        }
     }
-  
 
-    return (levelofx == levelofy && parentofy != parentofx)
+
+    return false
 };
