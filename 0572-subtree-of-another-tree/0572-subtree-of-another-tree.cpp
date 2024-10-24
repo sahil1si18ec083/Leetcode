@@ -12,15 +12,15 @@
  */
 class Solution {
 public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
+    bool identicaltrees(TreeNode* p, TreeNode* q) {
         if (p == NULL && q == NULL) {
             return true;
         }
         if (p == NULL || q == NULL) {
             return false;
         }
-        return (p->val == q->val && isSameTree(p->left, q->left) &&
-                isSameTree(p->right, q->right));
+        return (p->val == q->val && identicaltrees(p->left, q->left) &&
+                identicaltrees(p->right, q->right));
     }
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
         if (root == NULL && subRoot == NULL) {
@@ -29,6 +29,9 @@ public:
         if (root == NULL || subRoot == NULL) {
             return false;
         }
-        return (isSameTree(root,subRoot )|| isSubtree(root->left,subRoot ) || isSubtree(root->right,subRoot ));
+        return (identicaltrees(root, subRoot) ||
+                isSubtree(root->left, subRoot) ||
+
+                isSubtree(root->right, subRoot));
     }
 };
