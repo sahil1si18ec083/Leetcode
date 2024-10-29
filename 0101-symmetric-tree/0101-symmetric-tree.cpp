@@ -6,26 +6,27 @@
  *     TreeNode *right;
  *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
  *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
- *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left),
+ * right(right) {}
  * };
  */
 class Solution {
 public:
-         bool solve(TreeNode *left, TreeNode *right){
-            if(left==NULL && right==NULL){
-                return true;
-            }
-            if(left==NULL || right==NULL){
-                return false;
-            }
-            return (left->val==right->val && solve(left->left,right->right) && solve(left->right, right->left));
-        } 
+    bool solve(TreeNode* l, TreeNode* r) {
+        if (l == NULL && r == NULL) {
+            return true;
+        }
+        if (l == NULL || r == NULL) {
+            return false;
+        }
+        return (l->val == r->val && solve(l->left, r->right) &&
+                solve(l->right, r->left));
+    }
     bool isSymmetric(TreeNode* root) {
-   
-        if(root==NULL){
+        // Write your code here
+        if (root == NULL) {
             return true;
         }
         return solve(root->left, root->right);
-        
     }
 };
