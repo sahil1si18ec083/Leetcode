@@ -18,18 +18,17 @@ public:
         }
         return (1 + counnodes(root->left) + counnodes(root->right));
     }
-    int dfs(TreeNode* root, int &res) {
+    int dfs(TreeNode* root, int& res) {
         if (root == NULL) {
             return 0;
         }
         if (root->left == NULL && root->right == NULL) {
-        res += 1;
+            res += 1;
             return root->val;
         }
         int lsum = dfs(root->left, res);
         int rsum = dfs(root->right, res);
-        int param =
-            (lsum + rsum+root->val) / (counnodes(root));
+        int param = (lsum + rsum + root->val) / (counnodes(root));
         if (param == root->val) {
             res += 1;
         }
