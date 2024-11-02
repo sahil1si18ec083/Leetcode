@@ -11,15 +11,31 @@
  */
 class Solution {
 public:
+    bool isonepresent(TreeNode* root){
+        if(root==NULL){
+            return false;
+        }
+        
+        return ( (root->val==1)|| isonepresent(root->left) || isonepresent(root->right));
+    }
     TreeNode* pruneTree(TreeNode* root) {
         if(root==NULL){
             return NULL;
         }
-        root->left = pruneTree(root->left);
-        root->right = pruneTree(root->right);
-        if(root->left==NULL  && root->right==NULL && root->val ==0){
+         root->left = pruneTree(root->left);
+         root->right = pruneTree(root->right);
+         if (root->left==NULL && root->right==NULL && root->val==0){
             return NULL;
+         }
+
+        if(!isonepresent(root->left)){
+            root->left=NULL;
+           
+        }
+         if(!isonepresent(root->right)){
+            root->right = NULL;
         }
         return root;
+        
     }
 };
