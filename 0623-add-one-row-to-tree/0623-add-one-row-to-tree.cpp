@@ -18,12 +18,13 @@ public:
             newroot->left= root;
             return newroot;
          }
+         bool rowadded= false;
         int currentdepth = 1;
         queue<TreeNode*> q;
         q.push(root);
        
 
-        while (q.size() > 0) {
+        while (q.size() > 0 && !rowadded) {
             int qsize = q.size();
 
             for (int i = 0; i < qsize; i++) {
@@ -39,6 +40,7 @@ public:
                     temp->right = second;
                     first->left = leftNode;
                     second->right = rightNode;
+                    rowadded= true;
                 } else {
                     if (temp->left) {
                         q.push(temp->left);
