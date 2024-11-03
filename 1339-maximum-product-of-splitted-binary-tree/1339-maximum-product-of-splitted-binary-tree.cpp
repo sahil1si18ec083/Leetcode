@@ -13,19 +13,13 @@
 class Solution {
 public:
     long long int MOD = 1000000007;
-    long long int sum(TreeNode* root) {
-        if (root == NULL)
-            return 0;
-        int lsum = sum(root->left) ;
-        int rsum = sum(root->right) ;
-        return (root->val  + lsum + rsum);
-    }
-    int dfs(TreeNode* root, int totalsum, long long int& maxproduct) {
+
+    int sum(TreeNode* root, int totalsum, long long int& maxproduct) {
         if (root == NULL) {
             return 0;
         }
-        long long int lsum = dfs(root->left, totalsum, maxproduct) ;
-        long long int rsum = dfs(root->right, totalsum, maxproduct) ;
+        long long int lsum = sum(root->left, totalsum, maxproduct) ;
+        long long int rsum = sum(root->right, totalsum, maxproduct) ;
         long long int product1 = (root->val % MOD + lsum + rsum) ;
         long long int product2 = (totalsum  - product1  ) ;
         long long int totalproduct = (product1 * product2 ) ;
@@ -33,10 +27,12 @@ public:
         return (root->val  + lsum + rsum) ;
     }
     int maxProduct(TreeNode* root) {
-        int totalsum = sum(root);
-
+        int totalsum=0;
         long long int maxproduct = 0;
-        long long int val = dfs(root, totalsum, maxproduct);
+         totalsum = sum(root,totalsum,maxproduct);
+
+        
+        long long int val = sum(root, totalsum, maxproduct);
         return maxproduct % MOD;
     }
 };
