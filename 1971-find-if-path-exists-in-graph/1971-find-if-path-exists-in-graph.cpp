@@ -1,33 +1,32 @@
 class Solution {
 public:
+    void dfs(int n, int source, int destination, unordered_map<int, vector<int>> &mp,
+             bool& flag, vector<bool>& visited) {
+        if (source == destination) {
+            flag = true;
+            return;
+        }
+        visited[source] = true;
+        for (int i = 0; i < mp[source].size(); i++) {
+            if (visited[mp[source][i]] == false) {
+                dfs(n,mp[source][i], destination, mp, flag, visited);
+            }
+        }
+    }
     bool validPath(int n, vector<vector<int>>& edges, int source,
                    int destination) {
+        unordered_map<int, vector<int>> mp;
         vector<bool> visited(n, false);
-        map<int, vector<int>> adjlist;
-
         for (int i = 0; i < edges.size(); i++) {
-            int u = edges[i][0]; // 0
-            int v = edges[i][1]; // 1
-            adjlist[u].push_back(v);
-            adjlist[v].push_back(u);
+            int u = edges[i][0];
+            int v = edges[i][1];
+            mp[u].push_back(v);
+            mp[v].push_back(u);
         }
-        queue<int> q;
-        q.push(source);
-        while (q.size() > 0) {
+        bool flag = false;
 
-            int front = q.front();
-            if (front == destination) {
-                return true;
-            }
-            q.pop();
-            for(int i=0;i<adjlist[front].size();i++){
-                if(!visited[adjlist[front][i]] ){
-                    q.push(adjlist[front][i]);
-                    visited[adjlist[front][i]]= true;
+        dfs(n, source, destination, mp, flag, visited);
 
-                }
-            }
-        }
-        return false;
+        return flag;
     }
 };
