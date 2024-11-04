@@ -16,11 +16,11 @@ public:
                 if(factor>0){
                     int n = 9;
                     for(int i=1;i<=factor;i++){
-                        comp= comp + to_string(n)+ch;
+                        comp+= to_string(n)+ch;
                     }
                 }
                 if(rem>0){
-                    comp= comp + to_string(rem)+ch;
+                    comp += to_string(rem)+ch;
                 }
                 ch= word[i];
                 count=1;
@@ -32,11 +32,11 @@ public:
                 if(factor>0){
                     int n = 9;
                     for(int i=1;i<=factor;i++){
-                        comp= comp + to_string(n)+ch;
+                       comp+= to_string(n)+ch;
                     }
                 }
                 if(rem>0){
-                    comp= comp + to_string(rem)+ch;
+                    comp += to_string(rem)+ch;
                 }
         }
         return comp;
