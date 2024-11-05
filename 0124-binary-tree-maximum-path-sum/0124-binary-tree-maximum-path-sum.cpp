@@ -12,26 +12,28 @@
  */
 class Solution {
 public:
-    int helper(TreeNode* root, int& maxpossiblesum) {
+    int helper(int& maxsum, TreeNode* root) {
         if (root == NULL) {
             return 0;
         }
-        int leftsum = helper(root->left, maxpossiblesum);
-        int rightsum = helper(root->right, maxpossiblesum);
-        if(leftsum<0){
-            leftsum=0;
+        int leftsum = helper(maxsum,root->left);
+        int rightsum = helper(maxsum,root->right);
+        if (leftsum < 0) {
+            leftsum = 0;
         }
-        if(rightsum<0){
-            rightsum=0;
+        if (rightsum < 0) {
+            rightsum = 0;
         }
-       
-
-        maxpossiblesum = max(maxpossiblesum, leftsum + rightsum + root->val);
-        return (max(leftsum,rightsum)+root->val);
+        int possiblemaxsum = leftsum + rightsum + root->val;
+        maxsum = max(maxsum, possiblemaxsum);
+        return (root->val + max(leftsum, rightsum));
     }
     int maxPathSum(TreeNode* root) {
-        int maxpossiblesum = INT_MIN;
-        int sum = helper(root, maxpossiblesum);
-        return maxpossiblesum;
+
+        int maxsum = INT_MIN;
+
+        int sum = helper(maxsum, root);
+
+        return maxsum;
     }
 };
