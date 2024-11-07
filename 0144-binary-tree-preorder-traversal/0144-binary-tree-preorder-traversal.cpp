@@ -13,32 +13,29 @@
 class Solution {
 public:
     vector<int> preorderTraversal(TreeNode* root) {
-
-        vector<int> v;
+        vector<int> result;
         TreeNode* current = root;
         while (current) {
             if (current->left == NULL) {
-                v.push_back(current->val);
+                result.push_back(current->val);
                 current = current->right;
+
             } else {
-                // current ka left agar null nahi hai toh dekha hai ki left ka
-                // right most node null hai ki nahi
                 TreeNode* leftNode = current->left;
                 while (leftNode->right != NULL && leftNode->right != current) {
                     leftNode = leftNode->right;
                 }
                 if (leftNode->right == NULL) {
-                    v.push_back(current->val);
+                    result.push_back(current->val);
                     leftNode->right = current;
                     current = current->left;
 
                 } else {
                     leftNode->right = NULL;
-                    current= current->right;
+                    current = current->right;
                 }
             }
         }
-
-        return v;
+        return result;
     }
 };
