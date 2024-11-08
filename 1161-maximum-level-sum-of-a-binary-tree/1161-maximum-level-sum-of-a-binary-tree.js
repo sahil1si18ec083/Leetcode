@@ -10,13 +10,12 @@
  * @param {TreeNode} root
  * @return {number}
  */
-var maxLevelSum = function (root) {
-    let maxsum = -100001;
-    let res;
-    let level=1;
+var maxLevelSum = function(root) {
     const queue = []
-    queue.push(root)
-    while (queue.length > 0) {
+    var maxsum= -100000;
+    var level=1;
+    queue.push(root);
+      while (queue.length > 0) {
         let iterator= queue.length;
         let sum=0;
         for(let i=0;i<iterator;i++){
@@ -42,4 +41,5 @@ var maxLevelSum = function (root) {
     }
     return res
 
+    
 };
