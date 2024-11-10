@@ -12,7 +12,7 @@ public:
         }
         int orval = 0;
         for (int i = 0; i < 32; i++) {
-            orval = orval + pow(2, i) * v[i];
+            orval = orval + pow(2, i) * (v[i]>0?1:0);
         }
         return orval;
     }
@@ -28,7 +28,7 @@ public:
         }
         int orval = 0;
         for (int i = 0; i < 32; i++) {
-            orval = orval + pow(2, i) * v[i];
+            orval = orval + pow(2, i) *(v[i]>0?1:0);
         }
         return orval;
     }
@@ -42,6 +42,7 @@ public:
         int orval = 0;
         while (j < n) {
             orval = updateCountVector(v, nums[j]);
+            cout<<orval<<endl;
             if(nums[i]>=k){
                 return 1;
             }
