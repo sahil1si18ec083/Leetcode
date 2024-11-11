@@ -13,35 +13,35 @@
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
-        if (root == NULL)
-            return 0;
-        long long int maxwidth = 0;
-        queue<pair<TreeNode*, long long int>> q;
-        q.push({root, 0});
+        long long maxwidth = 0;
+
+        queue<pair<TreeNode*, long long>> q;
+        q.push({root, 0}); // pushing a  pair with
         while (q.size() > 0) {
-            int qsize = q.size();
-            int l = 0;
-            int r = 0;
-
-            for (long long int i = 0; i < qsize; i++) {
-
-                pair<TreeNode*, long long int> temp = q.front();
+            long long qsize = q.size();
+            long long start = 0;
+            long long end = 0;
+            for (long long i = 0; i < qsize; i++) {
+                pair<TreeNode*, long long> temp = q.front();
                 q.pop();
                 if (i == 0) {
-                    l = temp.second;
+                    start = temp.second;
                 }
                 if (i == qsize - 1) {
-                    r = temp.second;
+                    end = temp.second;
                 }
                 if (temp.first->left != NULL) {
-                    q.push({temp.first->left, 2 * (temp.second - l) + 1});
+                    q.push({temp.first->left, 2 * (temp.second-start) + 1});
                 }
                 if (temp.first->right != NULL) {
-                    q.push({temp.first->right, 2 * (temp.second - l) + 2});
+                    q.push({temp.first->right, 2 * (temp.second-start) + 2});
                 }
             }
-            if (r - l + 1 > maxwidth) {
-                maxwidth = r - l + 1;
+            // cout<<start<<" ";
+            // cout<<end;
+            // cout<<endl;
+            if (end - start+1 > maxwidth) {
+                maxwidth = end - start+1;
             }
         }
         return maxwidth;
