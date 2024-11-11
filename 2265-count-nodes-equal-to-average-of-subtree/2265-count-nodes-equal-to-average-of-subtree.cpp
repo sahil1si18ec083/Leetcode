@@ -12,31 +12,29 @@
  */
 class Solution {
 public:
-    int counnodes(TreeNode* root) {
+    pair<int, int> dfs(TreeNode* root, int& res) {
         if (root == NULL) {
-            return 0;
-        }
-        return (1 + counnodes(root->left) + counnodes(root->right));
-    }
-    int dfs(TreeNode* root, int& res) {
-        if (root == NULL) {
-            return 0;
+            return {0,0};
         }
         if (root->left == NULL && root->right == NULL) {
             res += 1;
-            return root->val;
+            return {root->val,1};
         }
-        int lsum = dfs(root->left, res);
-        int rsum = dfs(root->right, res);
-        int param = (lsum + rsum + root->val) / (counnodes(root));
+        pair<int, int> lsum = dfs(root->left, res);
+        pair<int, int> rsum = dfs(root->right, res);
+        int param = (lsum.first + rsum.first + root->val) /
+                    (lsum.second + rsum.second + 1);
         if (param == root->val) {
             res += 1;
         }
-        return (root->val + lsum + rsum);
+        pair<int, int> ans;
+        ans.first = lsum.first + rsum.first + root->val;
+        ans.second = lsum.second + rsum.second + 1;
+        return ans;
     }
     int averageOfSubtree(TreeNode* root) {
         int res = 0;
-        int val = dfs(root, res);
+        pair<int, int> val = dfs(root, res);
         return res;
     }
 };
