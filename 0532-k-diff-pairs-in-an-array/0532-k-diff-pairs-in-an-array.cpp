@@ -22,10 +22,10 @@ public:
             if(mymap.find(i.first+k)!=mymap.end()){
                 count++;
             }
-            if(mymap.find(i.first-k)!=mymap.end()){
-                count++;
-            }
+            // if(mymap.find(i.first-k)!=mymap.end()){
+            //     count++;
+            // }
         }
-        return count/2;
+        return count;
     }
 };
