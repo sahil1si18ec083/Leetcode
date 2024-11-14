@@ -1,49 +1,40 @@
 class Solution {
 public:
-    bool ispossible(vector<int>& quantities, int k, int n) {
-        int m = quantities.size();
+    bool ispossible(int n, vector<int>& quantities, int k){
         int count=0;
-        for(int i=0;i<m;i++){
-            int sum=quantities[i];
-            while(sum>=k){
-                sum = sum - k;
-                count++;
-
+        for(int i=0;i<quantities.size();i++){
+            if(quantities[i]%k==0){
+                count+= quantities[i]/k;
             }
-            if(sum>0){
-                count++;
-                sum=0;
+            else{
+                count+= quantities[i]/k+1;
             }
-
         }
-        if(count<=n){
-            return true;
-        }
+        if(count<=n) return true;
         return false;
-       
     }
-        
     int minimizedMaximum(int n, vector<int>& quantities) {
-        int low = 1;
 
+
+        int low=1;
         int high = quantities[0];
-        for (int i = 0; i < quantities.size(); i++) {
-            if (quantities[i] > high) {
-                cout<<high<<endl;
-                high = quantities[i];
-            }
+        int ans=-1;
+        for(int i=0;i<quantities.size();i++){
+            high = max(high, quantities[i]);
         }
-        int ans = -1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            cout << mid << endl;
-            if (ispossible(quantities, mid, n)) {
-                ans = mid;
-                high = mid - 1;
-            } else {
-                low = mid + 1;
+
+        while(low<=high){
+            int mid= (low+high)/2;
+            if(ispossible(n , quantities, mid)){
+                ans=mid;
+                high = mid-1;
+
+            }
+            else{
+                low = mid+1;
             }
         }
         return ans;
+        
     }
 };
