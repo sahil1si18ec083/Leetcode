@@ -1,45 +1,41 @@
 class Solution {
 public:
     vector<int> resultsArray(vector<int>& nums, int k) {
-        list<int> dq;
-        int n = nums.size();
         vector<int> result;
-        for (int i = k - 1; i >= 0; i--) {
-            if (dq.size() == 0) {
-                dq.push_front(i);
-            } else {
-                if (nums[dq.front()] - nums[i] == 1) {
-                    dq.push_front(i);
-                }
+        int n = nums.size();
+        int count = 1;
+
+        for (int i = 1; i < k; i++) {
+            if (nums[i] - nums[i - 1] == 1) {
+                count++;
+            }
+            else{
+                count=1;
             }
         }
+        if (count == k) {
+            result.push_back(nums[k - 1]);
 
-        if (dq.size() == k) {
-            result.push_back( nums[dq.back()]);
         } else {
             result.push_back(-1);
         }
         int i = 0;
         int j = k - 1;
         while (j < n - 1) {
-            if (i == dq.front()) {
-                dq.pop_front();
+            if (count==k) {
+                count--;
             }
             i++;
             j++;
-            if (dq.size() == 0) {
-                dq.push_back(j);
-            } else if (nums[j] - nums[dq.back()] == 1) {
-                dq.push_back(j);
-
-            } else {
-                while (dq.size() > 0) {
-                    dq.pop_back();
-                }
-                dq.push_back(j);
+            if(nums[j]-nums[j-1]==1){
+                count++;
             }
-            if (dq.size() == k) {
-                result.push_back(nums[dq.back()]);
+            else{
+                count=1;
+            }
+            
+            if (count == k) {
+                result.push_back(nums[j]);
             } else {
                 result.push_back(-1);
             }
