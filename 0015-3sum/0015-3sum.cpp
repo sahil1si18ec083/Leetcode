@@ -4,46 +4,40 @@ public:
         sort(nums.begin(), nums.end());
         int n = nums.size();
         vector<vector<int>> res;
-        int i=0;
-        while(i<n-2){
-            int j=i+1;
-            int k=n-1;
-            while(j<k){
-                if (nums[i]+ nums[j]+ nums[k]==0){
-                    vector<int>temp;
+        int i = 0;
+        while (i < n - 2) {
+            int low = i + 1;
+            int high = n - 1;
+            while (low < high) {
+                
+                if (nums[low] + nums[high] + nums[i] == 0) {
+                    vector<int> temp;
                     temp.push_back(nums[i]);
-                    temp.push_back(nums[j]);
-                    temp.push_back(nums[k]);
+                    temp.push_back(nums[low]);
+                    temp.push_back(nums[high]);
                     res.push_back(temp);
-                   
-                    while(j<n-2 && nums[j]==nums[j+1]){
-                        j++;
 
+                    
+                    while (low < n - 2 && nums[low] == nums[low + 1]) {
+                        low++;
                     }
-                    while(k>0 && nums[k]==nums[k-1]){
-                        k--;
-
+                    while (high > 0 && nums[high] == nums[high - 1]) {
+                        high--;
                     }
-                    while( i<n-3 &&  nums[i]==nums[i+1]){
+                    while (i < n - 3 && nums[i] == nums[i + 1]) {
                         i++;
-
                     }
-                     j++;
-                    k--;
-
-                }
-                else if (nums[i]+ nums[j]+ nums[k]<0){
-                    j++;
-                }
-                else{
-                    k--;
+                    low++;
+                    high--;
+                } else if (nums[low] + nums[high] + nums[i] < 0) {
+                    low++;
+                } else {
+                    high--;
                 }
             }
             i++;
         }
 
         return res;
-
-        
     }
 };
