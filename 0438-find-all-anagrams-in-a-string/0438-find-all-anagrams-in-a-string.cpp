@@ -2,51 +2,47 @@ class Solution {
 public:
     vector<int> findAnagrams(string s, string p) {
         vector<int> result;
-        int n = s.size();
-        map<char, int> mymap;
-        int zeroscount = 0;
+
+        map<int, int> mymap;
         for (int i = 0; i < p.size(); i++) {
             mymap[p[i]]++;
         }
-        int mapsize = mymap.size();
-        int m = p.size();
-        if (m > n) {
-            return result;
+        int zeroscount = mymap.size();
+        int k = p.size();
+        for (int i = 0; i < k; i++) {
+            if (mymap.find(s[i]) != mymap.end()) {
+                mymap[s[i]]--;
+                if (mymap[s[i]] == 0) {
+                    zeroscount--;
+                }
+            }
         }
-        for (int i = 0; i < m; i++) {
-            mymap[s[i]]--;
-            if (mymap[s[i]] == 0) {
-                zeroscount++;
-            } else if (mymap[s[i]] == -1)
-                zeroscount--;
-        }
-        if (zeroscount == mapsize) {
+        if (zeroscount == 0) {
             result.push_back(0);
         }
         int i = 0;
-        int j = m - 1;
-
+        int j = k - 1;
+        int n = s.size();
         while (j < n - 1) {
-            cout << "hello";
-            mymap[s[i]]++;
-            if (mymap[s[i]] == 1) {
-                zeroscount--;
-            } else if (mymap[s[i]] == 0) {
-                zeroscount++;
+            j++;
+            if (mymap.find(s[j]) != mymap.end()) {
+                mymap[s[j]]--;
+                if (mymap[s[j]] == 0) {
+                    zeroscount--;
+                }
+            }
+            if (mymap.find(s[i]) != mymap.end()) {
+                mymap[s[i]]++;
+                if (mymap[s[i]] == 1) {
+                    zeroscount++;
+                }
             }
             i++;
-            j++;
-            mymap[s[j]]--;
-            if (mymap[s[j]] == -1) {
-                zeroscount--;
-            } else if (mymap[s[j]] == 0) {
-                zeroscount++;
-            }
-
-            if (zeroscount == mapsize) {
+            if (zeroscount == 0) {
                 result.push_back(i);
             }
         }
+
         return result;
     }
 };
