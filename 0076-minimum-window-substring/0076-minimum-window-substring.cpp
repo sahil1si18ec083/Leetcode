@@ -1,53 +1,50 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        if (s == t) {
-            return s;
-        }
-        
 
-        int minval = INT_MAX;
-        int startindex = -1;
-        map<char, int> myMap;
-        int zerocount = 0;
-        int m = s.size();
-        int n = t.size();
-        if(m<n){
-            return "";
+        int start=-1;
+        int minlength = INT_MAX;
+        int n = s.size();
+        map<int, int>tmapping;
+
+        // create a mapping of characters of t
+        for(int i=0;i<t.size();i++){
+            tmapping[t[i]]++;
         }
-        for (int i = 0; i < n; i++) {
-            myMap[t[i]]++;
-        }
-        int required = myMap.size();
-        int i = 0;
-        int j = 0;
-        while (j < m) {
-            if (myMap.find(s[j]) != myMap.end()) {
-                myMap[s[j]]--;
-                if (myMap[s[j]] == 0) {
-                    zerocount++;
-                }
+
+        int makezeroscount = tmapping.size();
+        int i=0;
+        int j=0;
+        while(j<n){
+            if(tmapping.find(s[j])!=tmapping.end() ){
+                 tmapping[s[j]]--;
+                 if (tmapping[s[j]]==0){
+                    makezeroscount--;
+                 }
             }
-           
-            while (zerocount == required) {
-
-                if (j - i+1 < minval) {
-                    minval = j - i+1;
-                    startindex=i;
+            while(makezeroscount==0){
+                // shrink karo kyu ki mujay mil chuka hai meri window
+                int size = j-i+1;
+                if(size<minlength){
+                    minlength= size;
+                    start=i;
                 }
-
-                if (myMap.find(s[i]) != myMap.end()) {
-                    myMap[s[i]]++;
-                    if (myMap[s[i]] > 0) {
-                        zerocount--;
-                    }
-                }
-                i++;
+                if(tmapping.find(s[i])!=tmapping.end() ){
+                 tmapping[s[i]]++;
+                 if (tmapping[s[i]]==1){
+                    makezeroscount++;
+                 }
             }
+            i++;
 
+            }
             j++;
+
         }
-     
-        return startindex==-1?"":s.substr(startindex,minval);
+
+        if(minlength==INT_MAX) return "";
+
+        return s.substr(start,minlength );
+        
     }
 };
