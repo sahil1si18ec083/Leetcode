@@ -6,7 +6,7 @@ public:
         int count=0;
         int p=1;
         int n = nums.size();
-        if(k==0)  return 0;
+        if(k<2)  return 0;
         while(j<n){
             p= p*nums[j];
             while(p>=k){
