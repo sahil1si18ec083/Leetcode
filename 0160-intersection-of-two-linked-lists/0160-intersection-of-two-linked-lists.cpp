@@ -12,21 +12,24 @@ public:
         if (headA == NULL || headB == NULL) {
             return NULL;
         }
-        ListNode* tempA = headA;
-        ListNode* tempB = headB;
-        while (tempA != tempB) {
-            tempA=tempA->next;
-            tempB=tempB->next;
-            if(tempA==tempB){
-                return tempA;
+        ListNode* currentA = headA;
+        ListNode* currentB = headB;
+        while (currentA && currentB) {
+            if (currentA == currentB) {
+                return currentB;
             }
-            if(tempA==NULL){
-                tempA= headB;
+            currentA = currentA->next;
+            currentB = currentB->next;
+            if (currentA == NULL && currentB==NULL){
+                return NULL;
             }
-            if(tempB==NULL){
-                tempB= headA;
+            else if (currentA == NULL) {
+                currentA = headB;
+            }
+            else if (currentB == NULL) {
+                currentB = headA;
             }
         }
-        return tempA;
+        return NULL;
     }
 };
