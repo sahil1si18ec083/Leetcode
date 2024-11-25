@@ -15,10 +15,10 @@ var maxDistance = function (position, m) {
             }
 
         }
-        if(count==m){
-            return true
+        if(count<m){
+            return false
         }
-        return false
+        return true
     }
 
     position.sort((a, b) => a - b);
