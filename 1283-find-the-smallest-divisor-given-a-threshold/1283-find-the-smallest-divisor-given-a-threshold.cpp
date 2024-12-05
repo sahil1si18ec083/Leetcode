@@ -1,37 +1,42 @@
 class Solution {
 public:
-    bool check(vector<int>& nums, int threshold, int mid){
-       long long int ans=0;
-        for(long long int i=0;i<nums.size();i++){
-          long long  int rem = nums[i] % mid;
-            ans = ans + nums[i]/mid;
-            if(rem>0) {
-                ans++;
+    bool helper(vector<int>& nums, int mid, int threshold) {
+        int c = 0;
+        int n = nums.size();
+        for (int i = 0; i < n; i++) {
+            if (nums[i] % mid == 0) {
+                c += nums[i] / mid;
+
+            } else {
+                c += nums[i] / mid;
+                c += 1;
             }
         }
-        if(ans<=threshold) return true;
+        if (c <= threshold)
+            return true;
         return false;
     }
     int smallestDivisor(vector<int>& nums, int threshold) {
-        long long int low=1;
-       long long int high =0;
-        long long int n = nums.size();
-        for(long long int i=0;i<n;i++){
-            high+=nums[i];
+
+        int sum = 0;
+        int n = nums.size();
+        for (int i = 0; i < n; i++) {
+            sum = max(nums[i], sum);
         }
-      long long  int ans=-1;
-        while(low<=high){
-            int mid = (low+high)/2;
-            if(check(nums, threshold, mid)){
+        int low = 1;
+        int high = sum;
+        int ans = -1;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+
+            if (helper(nums, mid, threshold)) {
                 ans = mid;
-                high = mid-1;
-            }
-            else{
+                high = mid - 1;
+            } else {
+
                 low = mid + 1;
             }
         }
-
         return ans;
-        
     }
 };
