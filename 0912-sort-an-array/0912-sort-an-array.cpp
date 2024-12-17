@@ -1,40 +1,56 @@
+
 class Solution {
 public:
-    void heapify(vector<int> &nums, int i, int n) {
-        int left = 2*i+1 ;
-        int right = 2*i +2 ;
-        int val = nums[i];
-        int index = i;
-        if (left <n && nums[left]> nums[index]){
-            index = left;
+    void mergemethod(vector<int>& nums, int low, int mid, int high) {
+        int i = low;
+        int j = mid + 1;
+        vector<int> temp;
+
+        while (i <= mid && j <= high) {
+            if (nums[i] <= nums[j]) {
+                temp.push_back(nums[i]);
+                i++;
+
+            } else {
+                temp.push_back(nums[j]);
+                j++;
+            }
         }
-        if (right <n && nums[right]> nums[index]){
-            index = right;
+        while (i <= mid) {
+
+            temp.push_back(nums[i]);
+            i++;
         }
-        if(i==index){
-            return ;
+        while (j <= high) {
+
+            temp.push_back(nums[j]);
+            j++;
         }
-        else{
-            swap(nums[i], nums[index]);
-            heapify(nums, index, n);
+        
+        for(int it=0;it<temp.size();it++){
+            nums[low]= temp[it];
+            low++;
         }
     }
+    void mergesort(vector<int>& nums, int low, int high) {
+
+        if (low >= high) {
+            return;
+        }
+        int mid = (low + high) / 2;
+
+        mergesort(nums, low, mid);
+        mergesort(nums, mid + 1, high);
+
+        mergemethod(nums, low, mid, high);
+    }
+
     vector<int> sortArray(vector<int>& nums) {
 
         int n = nums.size();
 
-        for (int i = (n - 2) / 2; i >= 0; i--) {
+        mergesort(nums, 0, n - 1);
 
-            heapify(nums, i, n);
-        }
-        // after doing heapify  starting removing the root
-        for(int i=0;i<nums.size();i++){
-            cout<<nums[i];
-        }
-        for(int i= n-1;i>=1;i--){
-            swap(nums[0], nums[i]);
-            heapify(nums, 0, i);
-        }
         return nums;
     }
 };
