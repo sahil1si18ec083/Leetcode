@@ -4,22 +4,28 @@
  * @return {boolean}
  */
 var containsNearbyDuplicate = function (nums, k) {
-    const n = nums.length;
+
+    const map = new Map();
+    let n = nums.length;
     let i = 0;
     let j = 0;
-    const set = new Set()
-    // simple sliding window jab window ki side k say jayda ho jaye toh shrink karna start kar do window ko
     while (j < n) {
-        set.add(nums[j]);
-        j++
+       
         while (j - i > k) {
-            set.delete(nums[i])
-            i++
+            map.set(nums[i], map.get(nums[i]) - 1);
+            
+            if (map.get(nums[i]) == 0) {
+                map.delete(nums[i]);
+            }
+            i++;
         }
-        if (j - i <= k && set.has(nums[j]) && j != i) {
+         if (map.has(nums[j])) {
+          
             return true;
         }
-        
+
+        map.set(nums[j], 1);
+        j++;
     }
-    return false
+    return false;
 };
