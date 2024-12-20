@@ -21,6 +21,7 @@ var search = function (nums, target) {
             }
         }
         else {
+             // if right is sorted
             if (target >= nums[mid] && target <= nums[high]) {
 
                 low = mid + 1;
