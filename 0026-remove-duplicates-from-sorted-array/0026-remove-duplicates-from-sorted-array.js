@@ -2,20 +2,21 @@
  * @param {number[]} nums
  * @return {number}
  */
-var removeDuplicates = function(nums) {
-    let i=0;
-    let j=1;
+var removeDuplicates = function (nums) {
+    let low = 0;
+    let high = 0;
     const n = nums.length;
-    while(j<n){
-        if(nums[i]==nums[j]){
-            j++;
+
+    while (high < n) {
+        if (nums[high] != nums[low]) {
+            low++;
+            nums[low] = nums[high];
+
+
         }
-        else{
-            nums[i+1]=nums[j];
-            i++;
-            j++;
-        }
+        high++;
     }
-    return i+1;
-    
+    return low + 1;
+
+
 };
