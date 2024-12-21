@@ -4,56 +4,46 @@
  * @return {number[]}
  */
 var searchRange = function (nums, target) {
-    function getFirst(nums, target) {
-        let low = 0;
-        let high = nums.length - 1;
-        let unsure = -1;
-        while (low <= high) {
-            let mid = Math.floor((low + high) / 2);
-            if (nums[mid] == target) {
-                unsure = mid;
-                high = mid - 1;
-            }
-            else if (nums[mid] < target) {
-                low = mid + 1;
 
-            }
-            else {
-                high = mid - 1;
+    let first = -1;
+    let second = -1;
+    let low = 0;
+    const n = nums.length;
+    let high = n - 1;
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+        if (nums[mid] == target) {
+            console.log({mid})
+            first = mid;
+            high = mid - 1;
 
-            }
         }
-        return unsure;
-
-    }
-    function getlast(nums, target) {
-        let low = 0;
-        let high = nums.length - 1;
-        let unsure = -1;
-        while (low <= high) {
-            let mid = Math.floor((low + high) / 2);
-            if (nums[mid] == target) {
-                unsure = mid;
-                low = mid + 1;
-
-
-            }
-            else if (nums[mid] < target) {
-                low = mid + 1;
-
-            }
-            else {
-                high = mid - 1;
-
-            }
+        else if (nums[mid] < target) {
+            low = mid + 1;
         }
-        return unsure;
-
+        else {
+            high = mid - 1;
+        }
     }
-    const firstOccurence = getFirst(nums, target)
-    const lastOccurence = getlast(nums, target);
+    low = 0;
 
-    return [firstOccurence,lastOccurence ]
+    high = n - 1;
 
+    while (low <= high) {
+        let mid = Math.floor((low + high) / 2);
+        if (nums[mid] == target) {
+            second = mid;
+           low = mid+1;
+
+        }
+        else if (nums[mid] < target) {
+            low = mid + 1;
+        }
+        else {
+            high = mid - 1;
+        }
+    }
+
+    return [first,second];
 
 };
