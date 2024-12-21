@@ -2,26 +2,29 @@
  * @param {string} s
  * @return {number}
  */
-var lengthOfLongestSubstring = function (s) {
-    const myset = new Set();
-
-    let i = 0;
-    let j = 0;
+var lengthOfLongestSubstring = function(s) {
     const n = s.length;
-    let max=0;
-    while (j < n) {
-        while (myset.has(s[j])) {
-            myset.delete(s[i])
+    let i=0;
+    let j=0;
+    const mp = new Map();
+    let maxlength=0;
+
+    while(j<n){
+
+        while(mp.has(s[j])){
+            mp.set(s[i], mp.get(s[i])-1);
+            if(mp.get(s[i])==0){
+                mp.delete(s[i]);
+            }
             i++;
         }
-        myset.add(s[j]);
-        j++;
-        console.log(i,j)
-        if(j-i>max){
-            max= j-i
-        }
-        
-    }
-    return max
 
+        mp.set(s[j],1);
+        maxlength= Math.max(maxlength, j-i+1);
+        j++;
+
+
+    }
+    return maxlength;
+    
 };
