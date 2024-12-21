@@ -10,17 +10,17 @@ var merge = function (nums1, m, nums2, n) {
 
     if (n == 0) return 0;
 
-    if (m == 0) {
-        // take elements from array 2 and keep it in arr1
-        let k = m + n - 1;
+    // if (m == 0) {
+    //     // take elements from array 2 and keep it in arr1
+    //     let k = m + n - 1;
 
-        for (let i = n - 1; i >= 0; i--) {
-            nums1[k] = nums2[i];
-            k--;
-        }
+    //     for (let i = n - 1; i >= 0; i--) {
+    //         nums1[k] = nums2[i];
+    //         k--;
+    //     }
 
 
-    }
+    // }
     let i = m - 1;
     let j = n - 1;
     let k = m + n - 1;
