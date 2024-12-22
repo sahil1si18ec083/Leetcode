@@ -2,35 +2,29 @@
  * @param {number[]} nums
  * @return {number}
  */
-var longestConsecutive = function (nums) {
+var longestConsecutive = function(nums) {
+    const map =  new Map();
 
-    const n = nums.length;
-    const set = new Set();
-
-    for (let i = 0; i < n; i++) {
-        set.add(nums[i])
+    for(let i=0;i<nums.length;i++){
+        map.set(nums[i], 1);
     }
 
-   
+    let maxdiff =0;
 
-    let maxcount = 0;
-
-
-    for (let i = 0; i < n; i++) {
-        let currentvalue = nums[i];
-
-        let count = 0;
-        if (set.has(currentvalue-1)){
+    for(let i=0;i<nums.length;i++){
+        if(map.has(nums[i]+1)){
             continue;
         }
-        while (set.has(currentvalue)) {
-            count++;
-            currentvalue = currentvalue + 1;
+        let num = nums[i];
+        let diff =0;
+       
+
+        while(map.has(num)){
+            diff= diff+1;
+            num = num-1;
         }
-
-        maxcount = Math.max(count, maxcount)
-
+        maxdiff = Math.max(maxdiff, diff);
     }
-    return maxcount
-
+    return maxdiff;
+    
 };
