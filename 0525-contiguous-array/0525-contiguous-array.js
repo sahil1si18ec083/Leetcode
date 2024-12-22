@@ -2,33 +2,35 @@
  * @param {number[]} nums
  * @return {number}
  */
-var findMaxLength = function (nums) {
+var findMaxLength = function(nums) {
+
+    let res =0;
     const map = new Map();
-    map.set(0, -1); // initial value of  map has to be set with 0 with index -1
-
+    let prefixsum =0;
     const n = nums.length;
-    let prefixsum = 0;
-    let maxlength = 0;
-    for (let i = 0; i < n; i++) {
-        if (nums[i] == 0) {
-            // 0 ko mankar chal ki vo minus 1 hai
-            prefixsum = prefixsum - 1
 
+    map.set(0, -1);
+    let maxlength=0;
+
+    for(let i=0;i<n;i++){
+        if(nums[i]==0){
+           prefixsum = prefixsum -1;
         }
-        else {
+        else{
             prefixsum = prefixsum + 1;
+        }
+
+        if(map.has(prefixsum)){
+            let diff = i- map.get(prefixsum);
+            maxlength= Math.max(diff, maxlength);
 
         }
-        if (map.has(prefixsum)) {
-            maxlength = Math.max(maxlength, i - map.get(prefixsum))
-        }
-        if (!map.has(prefixsum)) {
-            map.set(prefixsum, i)
+        else{
+            map.set(prefixsum, i);
         }
 
     }
 
-    console.log(map)
-    return maxlength
-
+    return maxlength;
+    
 };
