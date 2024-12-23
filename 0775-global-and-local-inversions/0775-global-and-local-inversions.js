@@ -2,61 +2,64 @@
  * @param {number[]} nums
  * @return {boolean}
  */
- function merge(arr,low,mid,high,n,inversionCount){
-    let i=low;
-    let j=mid+1;
-    const res=[]
-    let x=0;
-    while(i<=mid && j<=high){
-        if (arr[i]<arr[j]){
-            res.push(arr[i]);
-            i++;
-        }
-        else{
-            inversionCount.count = inversionCount.count + (mid-i+1);
-           res.push(arr[j]);
-            j++; 
-        }
-        
-    }
-    while(i<=mid){
-        res.push(arr[i]);
-        i++;
-    }
-    while(j<=high){
-        res.push(arr[j]);
-        j++;
-    }
-    for(let t=low;t<=high;t++){
-        arr[t]= res[x];
-        x++;
-    }
-}
-function mergesort(arr,n,low,high,inversionCount){
-    if (low>=high){
+function megresort(nums, globalinversions, low, high) {
+    if (low >= high) {
         return;
     }
-    let mid= Math.floor((low+high)/2);
-    mergesort(arr,n,low,mid,inversionCount);
-    mergesort(arr,n,mid+1,high,inversionCount);
-    merge(arr,low,mid,high,n,inversionCount);
-} 
-var isIdealPermutation = function (nums) {
-    var localcounts = 0;
-    for (let i = 0; i < nums.length - 1; i++) {
-        if (nums[i + 1] < nums[i]) {
-            localcounts++;
+    let mid = Math.floor((low + high) / 2);
+    megresort(nums, globalinversions, low, mid);
+    megresort(nums, globalinversions, mid + 1, high);
+    merge(nums, globalinversions, low, mid, high)
+
+}
+function merge(nums, globalinversions, low, mid, high) {
+    let i = low;
+    let j = mid + 1;
+    const temp = [];
+    while (i <= mid && j <= high) {
+        if (nums[i] <= nums[j]) {
+            temp.push(nums[i]);
+            i++;
         }
+        else {
+            temp.push(nums[j]);
+             globalinversions.val = globalinversions.val + (mid - i + 1);
+            j++;
+           
+        }
+    }
+    while (i <= mid) {
+
+        temp.push(nums[i]);
+        i++;
 
     }
-    const inversionCount = {
-        count: 0
+    while (j <= high) {
+
+        temp.push(nums[j]);
+        j++;
+
     }
-    let low = 0;
+    for (let i = 0; i < temp.length; i++) {
+        nums[low] = temp[i];
+        low++;
+    }
+
+}
+var isIdealPermutation = function (nums) {
     const n = nums.length;
-    let high = nums.length - 1;
-    mergesort(nums, n, low, high, inversionCount);
+    var localinversions = 0;
+    for (let i = 0; i < n - 1; i++) {
+        if (nums[i] > nums[i + 1]) {
+            localinversions++;
 
-    return localcounts == inversionCount.count
+        }
+    }
+    var globalinversions = { val: 0 }
+
+    megresort(nums, globalinversions, 0, n - 1);
+  
+
+    return globalinversions.val == localinversions;
 
 };
