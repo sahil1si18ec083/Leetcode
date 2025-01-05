@@ -4,18 +4,24 @@ public:
         int n = nums.size();
         int low = 0;
         int high = n - 1;
-        int possibleans = 0;
+        int ans = n + 1;
+        if(target>nums[n-1]){
+            return n;
+        }
+        if(target<nums[0]){
+            return 0;
+        }
         while (low <= high) {
-            int mid = high + (low - high) / 2;
+            int mid=(low)+(high-low)/2;
             if (nums[mid] == target) {
                 return mid;
             } else if (nums[mid] < target) {
-                possibleans = mid + 1;
                 low = mid + 1;
             } else {
+                ans = mid ;
                 high = mid - 1;
             }
         }
-        return possibleans;
+        return ans;
     }
 };
