@@ -1,34 +1,34 @@
 class Solution {
 public:
-    bool search(vector<int>& arr, int val) {
-        int n = arr.size();
+    bool search(vector<int>& nums, int target) {
+        int n = nums.size();
         int low = 0;
         int high = n - 1;
         while (low <= high) {
             int mid = (low + high) / 2;
-            if (arr[mid] == val) {
+            if (nums[mid] == target) {
                 return true;
-            } else if (arr[mid] == arr[low] && arr[low] == arr[high]) {
+            } else if (nums[mid] == nums[low] && nums[low] == nums[high]) {
                 low++;
                 high--;
-            }
-            // left part sorted hai
-            else if (arr[mid] >= arr[low]) {
-                if (val >= arr[low] && val <= arr[mid]) {
+            } else if (nums[mid] >= nums[low]) {
+                // left part sorted hai
+                if (target >= nums[low] && target <= nums[mid]) {
                     high = mid - 1;
                 } else {
                     low = mid + 1;
                 }
-            }
-            // toh matlab right part sorted hoga
-            else {
-                if (val >= arr[mid] && val <= arr[high]) {
+
+            } else {
+                if (target >= nums[mid] && target <= nums[high]) {
                     low = mid + 1;
                 } else {
+
                     high = mid - 1;
                 }
             }
         }
+
         return false;
     }
 };
