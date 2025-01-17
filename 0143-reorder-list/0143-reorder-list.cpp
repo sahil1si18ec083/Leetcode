@@ -10,66 +10,78 @@
  */
 class Solution {
 public:
-    ListNode* findMiddle(ListNode* head) {
-        if (head == NULL || head->next == NULL) {
+    ListNode* getMiddle(ListNode* head) {
+        if (head == NULL || head->next == NULL)
             return head;
-        }
         ListNode* slow = head;
+          ListNode* prev = NULL;
         ListNode* fast = head;
-        ListNode* prev = NULL;
-        while (fast && fast->next ) {
+        while (fast && fast->next) {
             prev = slow;
             slow = slow->next;
             fast = fast->next->next;
         }
-       
         return prev;
     }
-    ListNode* reverse(ListNode* head) {
+    ListNode* reverseList(ListNode* head) {
         if (head == NULL || head->next == NULL) {
             return head;
         }
-        ListNode* prev = NULL;
         ListNode* current = head;
-        while (current) {
+        ListNode* prev = NULL;
+        while (current != NULL) {
             ListNode* temp = current->next;
             current->next = prev;
             prev = current;
             current = temp;
         }
-        
         return prev;
     }
     void reorderList(ListNode* head) {
-        if (head == NULL || head->next == NULL) {
+        if (head == NULL || head->next == NULL)
             return;
-        }
-        ListNode* middle = findMiddle(head);
+        ListNode* middle = getMiddle(head);
         ListNode* middlenext = middle->next;
         middle->next = NULL;
-        ListNode* middlenextreverse = reverse(middlenext);
-
-        ListNode* dummy = new ListNode(-1);
-        ListNode* current = dummy;
-
-        while(head && middlenextreverse){
+        ListNode* reversed = reverseList(middlenext);
+        ListNode* dummyNode = new ListNode(-1);
+        ListNode* current = dummyNode;
+        while (head && reversed) {
             current->next = head;
-            current = current->next;
+
             head = head->next;
-            current->next = middlenextreverse;
             current = current->next;
-            middlenextreverse= middlenextreverse->next;
 
-        }
-        if(head){
-            current->next = head;
+            current->next = reversed;
+            reversed = reversed->next;
             current = current->next;
         }
-         if(middlenextreverse){
-            current->next = middlenextreverse;
-            current = current->next;
+
+        // if (head) {
+        //     cout << head->val << endl;
+        //     cout << "ffffffffffffffff" << endl;
+        //     cout << current->val << endl;
+        //     cout << "ffffffffffffffff" << endl;
+
+        //     current->next = head;
+
+        //     head = head->next;
+        //     current = current->next;
+            
+        // }
+        if (reversed) {
+           
+            cout << current->val << endl;
+            cout << "ffffffffffffffff" << endl;
+
+            current->next = reversed;
+
+            reversed = reversed->next;
+              current = current->next;
         }
-        current->next = NULL;
-        head = dummy->next;
+        
+
+        cout<<dummyNode->next->val <<"uuu";
+        head = dummyNode->next;
     }
 };
