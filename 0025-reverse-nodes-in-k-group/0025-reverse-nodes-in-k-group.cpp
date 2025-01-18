@@ -10,18 +10,15 @@
  */
 class Solution {
 public:
-    int size(ListNode* head) {
+    int Length(ListNode* head) {
         int l = 0;
-        ListNode* current = head;
-        while (current) {
+        while (head) {
             l++;
-            current = current->next;
+            head = head->next;
         }
         return l;
     }
     ListNode* reverse(ListNode* head) {
-        if (head == NULL || head->next == NULL)
-            return head;
         ListNode* prev = NULL;
         ListNode* current = head;
         while (current) {
@@ -32,29 +29,19 @@ public:
         }
         return prev;
     }
-    ListNode* helper(ListNode* head, int k) {
-        int n = size(head);
-        if (n < k)
-            return head;
-        if (n == k)
-            return reverse(head);
-
-        ListNode* current = head;
-        ListNode* prev = NULL;
-        for(int i=0;i<k;i++){
-            prev = current;
-            current = current->next;
-        }
-        prev->next = NULL;
-        ListNode* newhead = reverse(head);
-        head->next = helper(current, k);
-        return newhead;
-    }
     ListNode* reverseKGroup(ListNode* head, int k) {
-        if (head == NULL || head->next == NULL) {
+        if(Length(head)<k){
             return head;
         }
-
-        return helper(head, k);
+        ListNode* newhead = head;
+        for(int i=1;i<=k-1;i++){
+            newhead= newhead->next;
+        }
+        ListNode* next = newhead;
+        next = newhead->next;
+        newhead->next = NULL;
+        ListNode* rerversed = reverse(head);
+        head->next = reverseKGroup(next,k);
+        return newhead;
     }
 };
