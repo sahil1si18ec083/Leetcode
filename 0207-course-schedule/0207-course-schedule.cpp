@@ -1,47 +1,43 @@
 class Solution {
 public:
+    bool iscycle(vector<bool>& visited, vector<bool>& dfsvisited, int n,
+                 unordered_map<int, vector<int>>& mp, int i) {
+
+        visited[i] = true;
+        dfsvisited[i] = true;
+
+        for (auto j : mp[i]) {
+            if (visited[j] == false && iscycle(visited, dfsvisited, n, mp, j)) {
+                return true;
+            }
+            if(visited[j] && dfsvisited[j]){
+                return true;
+            }
+        }
+        dfsvisited[i] = false;
+
+        return false;
+    }
     bool canFinish(int numCourses, vector<vector<int>>& prerequisites) {
-
-        // calculate the top sort using kahn's algorithm
-
-        unordered_map<int, vector<int>> adj;
-
-        vector<int> toposort;
         int n = numCourses;
-        vector<int> indegree(n, 0);
-
+        vector<bool> visited(n, false);
+        vector<bool> dfsvisited(n, false);
+        unordered_map<int, vector<int>> mp;
         for (int i = 0; i < prerequisites.size(); i++) {
             int u = prerequisites[i][0];
             int v = prerequisites[i][1];
-            indegree[u]++;
-            adj[v].push_back(u);
+            mp[v].push_back(u);
         }
 
-        queue<int> q;
-
-        for (int i = 0; i < indegree.size(); i++) {
-            if (indegree[i] == 0) {
-                cout<<"gggggg";
-                q.push(i);
+        for (int i = 0; i < n; i++) {
+            if (visited[i] == true) {
+                continue;
+            }
+            if (iscycle(visited, dfsvisited, n, mp, i)) {
+                return false;
             }
         }
-        
-        while (q.size() > 0) {
-            int front = q.front();
-            cout<<front;
-            q.pop();
-            toposort.push_back(front);
-            for (int j = 0; j < adj[front].size(); j++) {
-                indegree[ adj[front][j]]--;
-                if (indegree[ adj[front][j]]== 0) {
-                    q.push( adj[front][j]);
-                }
-            }
-        }
-        cout<<"j"<<toposort.size()<<"  ddddddddddddddd";
-        if (toposort.size() == numCourses)
-            return true;
 
-        return false;
+        return true;
     }
 };
