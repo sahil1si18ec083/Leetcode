@@ -11,40 +11,29 @@
  * @param {_Node} head
  * @return {_Node}
  */
-var copyRandomList = function (head) {
-    let copylinkedlisthead = new _Node(-1);
-    let currentnodeofcopylinkedlist = copylinkedlisthead;
+var copyRandomList = function(head) {
+    const map = new Map();
+    const dummyNode = new  _Node(-1, null, null);
+    let currentAddress = dummyNode
     let current = head;
-    while (current != null) {
-        currentnodeofcopylinkedlist.next = new _Node(current.val);
-        currentnodeofcopylinkedlist = currentnodeofcopylinkedlist.next
+    while(current!=null){
+        
+        currentAddress.next = new  _Node(current.val, null, null)
+        currentAddress= currentAddress.next;
+        map.set(current, currentAddress)
         current = current.next;
     }
-    copylinkedlisthead = copylinkedlisthead.next;
-  
-
-    const map = new Map()
+    console.log(map)
+    let newhead = dummyNode.next;
     current = head;
-    currentnodeofcopylinkedlist = copylinkedlisthead;
-    while (current != null) {
-        map.set(current,currentnodeofcopylinkedlist );
-        currentnodeofcopylinkedlist = currentnodeofcopylinkedlist.next;
-        current = current.next
+    while(current!= null){
+        let b1= map.get(current);
+        let randomofcurrent = current.random;
+        let b3 = map.get(randomofcurrent);
+        b1.random = b3;
+        current= current.next
+
+
     }
-
-    
-
-    currentnodeofcopylinkedlist = copylinkedlisthead;
-    current= head;
-    while(current){
-        // currentnodeofcopylinkedlist.random = map.get( currentnodeofcopylinkedlist).random;
-        const random = current.random;
-        const myrandom = map.get(random);
-
-        currentnodeofcopylinkedlist.random = myrandom
-        currentnodeofcopylinkedlist= currentnodeofcopylinkedlist.next;
-        current= current.next;
-    }
-    return copylinkedlisthead
-
+    return dummyNode.next
 };
