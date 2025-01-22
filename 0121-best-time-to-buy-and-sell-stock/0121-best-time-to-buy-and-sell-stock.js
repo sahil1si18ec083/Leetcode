@@ -2,27 +2,26 @@
  * @param {number[]} prices
  * @return {number}
  */
-var maxProfit = function(prices) {
+var maxProfit = function (prices) {
+    const n = prices.length;
+    let maxselling = prices[n - 1];
+    let maxprofit = 0;
 
-    let maxprofit=0;
-       const n = prices.length;
-    let maxarr= new Array(n).fill(0);
- 
-    for(let i= n-1;i>=0;i--){
-        if(prices[i]>maxprofit){
-            maxprofit= prices[i];
-
+    for (let i = n - 2; i >= 0; i--) {
+        let profit = maxselling - prices[i];
+        if (profit >= maxprofit) {
+            maxprofit = profit;
         }
-        maxarr[i]= maxprofit;
+        if (prices[i] >= maxselling) {
+            maxselling = prices[i];
+        }
+
 
     }
-    let ans=0;
-    for(let i=0;i<n;i++ ){
-        let diff = maxarr[i]- prices[i];
-        if(diff>ans){
-            ans = diff;
-        }
-    }
-    return ans;
-    
+
+    return maxprofit;
+
+
+
+
 };
