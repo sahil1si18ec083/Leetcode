@@ -1,20 +1,24 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        int n = nums.size();
-        unordered_map<int, int> mp;
-
-        for(int i=0;i<n;i++){
-            mp[nums[i]]++;
-        }
-        int res =-1;
-        for(auto i:mp){
-            if(i.second==1){
-                res = i.first;
-                break;
+        long long  result =0;
+        for(int i=0;i<32;i++){
+            int setsbits_at_i_th_position =0;
+            for(auto num: nums){
+                int mask = 1 << i;
+                int val = mask & num;
+                if(val!=0){
+                    setsbits_at_i_th_position++;
+                }
             }
+            setsbits_at_i_th_position = setsbits_at_i_th_position % 3;
+            if(setsbits_at_i_th_position==0){
+                continue;
+            }
+            result = result + pow(2,i);
+
         }
-        return res;
+        return result;
         
     }
 };
