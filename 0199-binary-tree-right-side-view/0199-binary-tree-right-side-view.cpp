@@ -12,26 +12,30 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root, vector<int>& result, int index) {
-        if (root == NULL) {
-            return;
-        }
-        // do normal pre order but do it in a way first right and then left
-        if(index>=result.size()){
-            result.push_back(root->val);  // pre order ka first portion
-        }
-
-        solve(root->right, result, index + 1);
-        solve(root->left, result, index + 1);
-    }
     vector<int> rightSideView(TreeNode* root) {
+        vector<int> res;
+        if (root == NULL)
+            return res;
+        queue<TreeNode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            int qsize = q.size();
+            int val=0;
+            
+            for (int i = 0; i < qsize; i++) {
+                TreeNode* temp = q.front();
+                q.pop();
+                val = temp->val;
+                if (temp->left) {
+                    q.push(temp->left);
+                }
+                if (temp->right) {
+                    q.push(temp->right);
+                }
+            }
 
-        vector<int> result;
-
-        int index = 0;
-
-        solve(root, result, index);
-
-        return result;
+            res.push_back(val);
+        }
+        return res;
     }
 };
