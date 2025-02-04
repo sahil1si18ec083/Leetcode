@@ -13,35 +13,36 @@
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
-        long long maxwidth = 0;
+        int maxwidth = 1;
 
-        queue<pair<TreeNode*, long long>> q;
-        q.push({root, 0}); // pushing a  pair with
+        queue<pair<TreeNode*, int>> q;
+        q.push({root, 0});
         while (q.size() > 0) {
-            long long qsize = q.size();
-            long long start = 0;
-            long long end = 0;
-            for (long long i = 0; i < qsize; i++) {
-                pair<TreeNode*, long long> temp = q.front();
-                q.pop();
+            int qsize = q.size();
+            long long int start = 0;
+            long long int end = 0;
+            for (int i = 0; i < qsize; i++) {
+                pair<TreeNode*, int> front = q.front();
+                long long int index = front.second;
                 if (i == 0) {
-                    start = temp.second;
+                    start = front.second;
                 }
                 if (i == qsize - 1) {
-                    end = temp.second;
+                    end = front.second;
                 }
-                if (temp.first->left != NULL) {
-                    q.push({temp.first->left, 2 * (temp.second-start) + 1});
+                q.pop();
+                if (front.first->left) {
+                    q.push({front.first->left, 2 * (index - start) + 1});
                 }
-                if (temp.first->right != NULL) {
-                    q.push({temp.first->right, 2 * (temp.second-start) + 2});
+                if (front.first->right) {
+                    q.push({front.first->right, 2 * (index - start) + 2});
                 }
             }
-            // cout<<start<<" ";
-            // cout<<end;
-            // cout<<endl;
-            if (end - start+1 > maxwidth) {
-                maxwidth = end - start+1;
+            if (end != 0 && start != 0) {
+               
+                if(end - start + 1 > maxwidth ){
+                    maxwidth= end - start + 1;
+                }
             }
         }
         return maxwidth;
