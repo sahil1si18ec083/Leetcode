@@ -4,10 +4,19 @@ public:
     vector<vector<int>> insert(vector<vector<int>>& intervals,
                                vector<int>& newInterval) {
 
-        intervals.push_back(newInterval);
+        int index = 0;
+        for (int i = 0; i < intervals .size(); i++) {
+            if (intervals [i][0] < newInterval[0]) {
+                index = i+1;
+                
+            }
+        }
+        intervals.insert(intervals.begin() + index, newInterval);
+
         vector<vector<int>> result;
-        sort(intervals.begin(), intervals.end(), comparator);
         result.push_back(intervals[0]);
+        cout<<intervals[0][0];
+
         int n = intervals.size();
         for (int i = 1; i < n; i++) {
             int s = intervals[i][0];
@@ -16,7 +25,7 @@ public:
                 result.push_back({s, e});
             } else {
                 result[result.size() - 1][1] =
-                    max( result[result.size() - 1][1], e);
+                    max(result[result.size() - 1][1], e);
             }
         }
         return result;
