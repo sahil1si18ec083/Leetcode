@@ -12,28 +12,29 @@
  */
 class Solution {
 public:
-    void solve(TreeNode* root, int targetSum, vector<int> temp,
-               vector<vector<int>>& res, int sum) {
-        if (root == NULL) {
+    void dfs(TreeNode* root, vector<int>& path, vector<vector<int>>& result,
+             int sum, int targetSum) {
+        if (root == NULL)
             return;
+        path.push_back(root->val);
+        if (root->left==NULL && root->right==NULL && sum + root->val == targetSum) {
+            result.push_back(path);
         }
-        temp.push_back(root->val);
-        if (root->left == NULL && root->right == NULL) {
-            if (sum + root->val == targetSum) {
-                res.push_back(temp);
-            }
-            return;
-        }
-        // left path explore karo
-        solve(root->left, targetSum, temp, res, sum + root->val);
-        // right path karo
-        solve(root->right, targetSum, temp, res, sum + root->val);
+
+        dfs(root->left, path, result, sum + root->val, targetSum);
+        dfs(root->right, path, result, sum + root->val, targetSum);
+        path.pop_back();
     }
     vector<vector<int>> pathSum(TreeNode* root, int targetSum) {
-        vector<int> temp;
-        vector<vector<int>> res;
+
         int sum = 0;
-        solve(root, targetSum, temp, res, sum);
-        return res;
+
+        vector<int> path;
+
+        vector<vector<int>> result;
+
+        dfs(root, path, result, sum, targetSum);
+
+        return result;
     }
 };
