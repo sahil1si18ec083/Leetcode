@@ -12,30 +12,18 @@
  */
 class Solution {
 public:
+    void dfs(TreeNode* root, vector<int>& result) {
+        if (root == NULL)
+            return;
+
+        result.push_back(root->val);
+        dfs(root->left, result);
+        dfs(root->right, result);
+    }
     vector<int> preorderTraversal(TreeNode* root) {
         vector<int> result;
-        TreeNode* current = root;
-        while (current) {
-            if (current->left == NULL) {
-                result.push_back(current->val);
-                current = current->right;
 
-            } else {
-                TreeNode* leftNode = current->left;
-                while (leftNode->right != NULL && leftNode->right != current) {
-                    leftNode = leftNode->right;
-                }
-                if (leftNode->right == NULL) {
-                    result.push_back(current->val);
-                    leftNode->right = current;
-                    current = current->left;
-
-                } else {
-                    leftNode->right = NULL;
-                    current = current->right;
-                }
-            }
-        }
+        dfs(root, result);
         return result;
     }
 };
