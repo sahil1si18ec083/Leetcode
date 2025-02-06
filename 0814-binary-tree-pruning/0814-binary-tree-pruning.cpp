@@ -12,28 +12,25 @@
  */
 class Solution {
 public:
-    bool leafNode(TreeNode* root) {
+    bool isleaf(TreeNode* root){
         if(root==NULL) return false;
-        if (root->left == NULL && root->right == NULL) {
-            return true;
-        }
+        if(root->left == NULL && root->right == NULL) return true;
         return false;
     }
     TreeNode* pruneTree(TreeNode* root) {
-
         if (root == NULL)
             return NULL;
-
         root->left = pruneTree(root->left);
         root->right = pruneTree(root->right);
-        if (leafNode(root) && root->val == 0) {
+        if(isleaf(root) && root->val==0){
             return NULL;
         }
-        // if (leafNode(root->left) && root->val == 0) {
+
+        // if(isleaf(root->left) && root->left->val ==0 ){
         //     root->left = NULL;
         // }
-        // if (leafNode(root->right) && root->val == 0) {
-        //     root->right = NULL;
+        //     if(isleaf(root->right) && root->right->val ==0 ){
+        //     root->left = NULL;
         // }
         return root;
     }
