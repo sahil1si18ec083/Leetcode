@@ -12,15 +12,29 @@
  */
 class Solution {
 public:
-    TreeNode* pruneTree(TreeNode* root) {
-        if (root == NULL) {
-            return NULL;
+    bool leafNode(TreeNode* root) {
+        if(root==NULL) return false;
+        if (root->left == NULL && root->right == NULL) {
+            return true;
         }
+        return false;
+    }
+    TreeNode* pruneTree(TreeNode* root) {
+
+        if (root == NULL)
+            return NULL;
+
         root->left = pruneTree(root->left);
         root->right = pruneTree(root->right);
-        if (root->left == NULL && root->right==NULL && root->val == 0) {
+        if (leafNode(root) && root->val == 0) {
             return NULL;
         }
+        // if (leafNode(root->left) && root->val == 0) {
+        //     root->left = NULL;
+        // }
+        // if (leafNode(root->right) && root->val == 0) {
+        //     root->right = NULL;
+        // }
         return root;
     }
 };
