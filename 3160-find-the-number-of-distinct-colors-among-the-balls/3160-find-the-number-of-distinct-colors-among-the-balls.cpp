@@ -4,7 +4,7 @@ public:
         vector<int>res;
 
         unordered_map<int, int> mp;
-        set<int> myset;
+       unordered_map<int, int> myset;
         int n = queries.size();
         for(int i=0;i<n;i++){
             int u = queries[i][0];
@@ -12,12 +12,18 @@ public:
             if(mp.find(u)!=mp.end()){
                 int oldvalue = mp[u];
                 mp[u]= v;
-                myset.erase(oldvalue);
-                myset.insert(v);
+                if(myset[oldvalue]==1){
+                    myset.erase(oldvalue);
+                }
+                else{
+                     myset[oldvalue]--;
+                }
+               myset[v]++;
             }
             else{
                 mp[u]= v;
-                myset.insert(v);
+                myset[v]++;
+                
             }
             res.push_back(myset.size());
         }
